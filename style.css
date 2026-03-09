@@ -1,0 +1,271 @@
+@font-face {
+	font-family: 'RobotoCustom';
+	src: url('./fonts/Roboto-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'TacticSans';
+	src: url('./fonts/TacticSansExd-Bld.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial;
+}
+
+body {
+	margin: 0;
+	background: #1e1e1e;
+	color: white;
+	font-family: 'Roboto', sans-serif;
+
+	font-weight: 400;
+	font-size: 18px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+}
+
+p {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size: 18px;
+}
+
+.container {
+	width: 1200px;
+	margin: auto;
+	padding: 60px 0;
+}
+
+h1 {
+	font-size: 54px;
+	margin-bottom: 32px;
+}
+
+h2 {
+	font-size: 28px;
+	margin-bottom: 30px;
+}
+
+.header {
+	border-bottom: 1px solid #bded45;
+}
+
+.hero-p {
+	display: block;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size: 22px;
+}
+
+.nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 36px 0;
+}
+
+.logo {
+	color: #bded45;
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+	font-size: 20px;
+}
+
+nav a {
+	color: white;
+	text-decoration: none;
+	margin: 0 10px;
+}
+
+.hero {
+	text-align: center;
+	padding: 200px 0 140px;
+}
+
+.btn-main {
+	background: #bded45;
+	border: none;
+	padding: 24px 64px;
+	border-radius: 24px;
+	cursor: pointer;
+	font-weight: bold;
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+	font-size: 20px;
+	margin-top: 64px;
+}
+
+.btn-outline {
+	background: transparent;
+	border: 1px solid #b6ff00;
+	color: white;
+	padding: 8px 16px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+	font-size: 16px;
+}
+
+.grid {
+	display: grid;
+	gap: 20px;
+}
+
+.grid-3 {
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.card {
+	height: 180px;
+	border: 1px solid #bded45;
+	border-radius: 10px;
+}
+
+.resh-back {
+	background-color: #141414;
+}
+
+.service {
+	border: 1px solid #bded45;
+	border-radius: 16px;
+	padding: 24px;
+
+	display: grid;
+	grid-template-rows: 1fr auto auto;
+	gap: 20px;
+
+	min-height: 220px;
+}
+
+.service h3 {
+	font-size: 20px;
+	line-height: 1.3;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+}
+
+.service span {
+	color: #bded45;
+	font-family: 'TacticSans';
+	font-size: 20px;
+}
+
+.section-text {
+	margin-bottom: 30px;
+}
+
+.service button {
+	width: fit-content;
+}
+
+.logos .logo-card {
+	height: 100px;
+	background: white;
+	border-radius: 24px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px;
+}
+
+.logo-card img {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+}
+
+.card-text {
+	border: 1px solid #bded45;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.review {
+	display: flex;
+	gap: 20px;
+	border: 1px solid #bded45;
+	padding: 20px;
+	border-radius: 15px;
+}
+
+.avatar {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	border: 2px solid #bded45;
+}
+
+.form {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+	border: 1px solid #bded45;
+	padding: 40px;
+	border-radius: 15px;
+}
+
+.form textarea {
+	grid-column: 1/3;
+	height: 120px;
+}
+
+.form input,
+.form textarea {
+	background: transparent;
+	border: 1px solid #bded45;
+	padding: 10px;
+	border-radius: 8px;
+	color: white;
+}
+
+.form button {
+	grid-column: 1/3;
+
+	margin: auto;
+}
+
+.footer {
+	border-top: 1px solid #bded45;
+	padding: 40px 0;
+}
+
+.footer-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 40px;
+}
+
+.footer ul {
+	list-style: none;
+}
+
+.footer li {
+	margin: 8px 0;
+}
+
+.foot-con {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
