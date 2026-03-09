@@ -14,135 +14,295 @@
 
 				<nav>
 					<a href="#">Главная</a>
-					<a href="#">Проблемы</a>
-					<a href="#">Решения</a>
-					<a href="#">Преимущества</a>
-					<a href="#">Отзывы</a>
+					<a href="#tasks">Задачи</a>
+					<a href="#solutions">Услуги</a>
+					<a href="#advantages">Преимущества</a>
+					<a href="#reviews">Отзывы</a>
 				</nav>
 
 				<button class="btn-outline">Личный кабинет</button>
 			</div>
 		</header>
 
-		<section class="hero container">
-			<h1>IT-инфраструктура без сбоев</h1>
+		<section class="hero">
+			<canvas id="hero-canvas" class="hero-canvas"></canvas>
 
-			<span class="hero-p">
-				Аутсорс-поддержка оборудования и систем. Работаем 23 года.
-			</span>
+			<div class="container hero-content">
+				<h1>IT-инфраструктура без сбоев</h1>
 
-			<button class="btn-main">Заказать консультацию</button>
-		</section>
+				<span class="hero-p">
+					Аутсорс-поддержка оборудования и систем. Работаем 23 года.
+				</span>
 
-		<section class="container">
-			<h2>Проблемы</h2>
-
-			<div class="grid grid-3">
-				<div class="card"></div>
-				<div class="card"></div>
-				<div class="card"></div>
-				<div class="card"></div>
-				<div class="card"></div>
-				<div class="card"></div>
+				<button class="btn-main">Заказать консультацию</button>
 			</div>
 		</section>
 
-		<section class="resh-back">
+		<section id="tasks" class="container section-reveal tasks-section">
+			<div class="tasks-layout">
+				<div class="tasks-head">
+					<h2 class="section-title">С чем сталкиваются компании</h2>
+					<p class="section-lead">Типичные задачи, с которыми мы работаем каждый день. Если что-то из перечисленного знакомо — напишите или позвоните: подберём формат поддержки и поможем разгрузить ваших сотрудников от рутины и сбоев.</p>
+				</div>
+				<div class="tasks-grid cards-reveal">
+					<div class="card card-tasks card-reveal"><span class="card-label">Сбои серверов и оборудования</span></div>
+					<div class="card card-tasks card-tasks-outline card-reveal"><span class="card-label">Вирусы и угрозы безопасности</span></div>
+					<div class="card card-tasks card-tasks-outline card-reveal"><span class="card-label">Нет резервного копирования</span></div>
+					<div class="card card-tasks card-reveal"><span class="card-label">Устаревшее ПО и железо</span></div>
+				</div>
+			</div>
+		</section>
+
+		<section id="solutions" class="resh-back section-reveal">
 			<div class="container">
-				<h2>Решения</h2>
+				<div class="solutions-head">
+					<h2 class="section-title">Услуги</h2>
+				</div>
 
-				<p class="section-text">
-					Мы используем комплексный подход и предлагаем оптимальные решения.
-				</p>
-
-				<div class="grid grid-3">
-					<div class="service">
-						<h3>Абонентское обслуживание компьютеров и оргтехники</h3>
-
-						<span>от 500 ₽</span>
-
-						<button class="btn-outline">Подробнее</button>
+				<div class="grid grid-3 cards-reveal">
+					<div class="service card-reveal">
+						<div class="service-card">
+							<h3 class="service-card-title">Обслуживание компьютеров и оргтехники</h3>
+							<img src="./images/1card.png" alt="Обслуживание компьютеров и оргтехники" />
+						</div>
+						<div class="service-info">
+							<span class="service-price">от 500 ₽/мес</span>
+							<button class="btn-outline">Подробнее</button>
+						</div>
 					</div>
-
-					<div class="service">
-						<h3>Абонентское обслуживание серверов</h3>
-
-						<span>от 2000 ₽</span>
-
-						<button class="btn-outline">Подробнее</button>
+					<div class="service card-reveal">
+						<div class="service-card">
+							<h3 class="service-card-title">Обслуживание серверов</h3>
+							<img src="./images/2card.png" alt="Обслуживание серверов" />
+						</div>
+						<div class="service-info">
+							<span class="service-price">от 2000 ₽/мес</span>
+							<button class="btn-outline">Подробнее</button>
+						</div>
 					</div>
-
-					<div class="service">
-						<h3>Аудит ИТ-безопасности</h3>
-
-						<span>от 5000 ₽</span>
-
-						<button class="btn-outline">Подробнее</button>
+					<div class="service card-reveal">
+						<div class="service-card">
+							<h3 class="service-card-title">Аудит ИТ-безопасности</h3>
+							<img src="./images/3card.png" alt="Аудит ИТ-безопасности" />
+						</div>
+						<div class="service-info">
+							<span class="service-price">от 5000 ₽</span>
+							<button class="btn-outline">Подробнее</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<section class="container">
-			<h2>Нам доверяют следующие компании</h2>
-
-			<div class="grid grid-4 logos">
-				<div class="logo-card"><img src="./images/partner4.svg" alt="" /></div>
-				<div class="logo-card"><img src="./images/partner3.svg" alt="" /></div>
-				<div class="logo-card"><img src="./images/partner2.svg" alt="" /></div>
-				<div class="logo-card"><img src="./images/partner1.svg" alt="" /></div>
+		<section id="clients" class="container section-reveal">
+			<h2 class="section-title">Нам доверяют</h2>
+			<div class="grid grid-4 logos cards-reveal">
+				<div class="logo-card card-reveal"><img src="./images/partner4.svg" alt="Партнёр" /></div>
+				<div class="logo-card card-reveal"><img src="./images/partner3.svg" alt="Партнёр" /></div>
+				<div class="logo-card card-reveal"><img src="./images/partner2.svg" alt="Партнёр" /></div>
+				<div class="logo-card card-reveal"><img src="./images/partner1.svg" alt="Партнёр" /></div>
 			</div>
 		</section>
 
-		<section class="container">
-			<h2>Преимущества</h2>
-
-			<div class="grid grid-3">
-				<div class="card-text">Получение качественных IT услуг</div>
-				<div class="card-text">Экономия времени для развития бизнеса</div>
-				<div class="card-text">Гарантия на все работы</div>
-				<div class="card-text">Большой опыт (более 100 объектов)</div>
-				<div class="card-text">На рынке 23 года</div>
-				<div class="card-text">Экономия времени</div>
-			</div>
-		</section>
-
-		<section class="resh-back">
-			<div class="container">
-				<h2>Отзывы наших клиентов</h2>
-
-				<div class="review">
-					<div class="avatar"></div>
-
-					<div>
-						<h4>Алексей Иванов</h4>
-						<span>Директор ООО "ТехноСфера"</span>
-
-						<p>
-							Отличная работа! Быстро решили проблемы с серверами, теперь всё
-							работает стабильно. Рекомендую.
-						</p>
+		<section id="advantages" class="container section-reveal">
+			<h2 class="section-title">Почему выбирают нас</h2>
+			<div class="accordion-grid cards-reveal">
+				<div class="accordion-col">
+					<div class="accordion-item" data-accordion>
+						<div class="accordion-head">
+							<span class="accordion-title">Качественные IT-услуги без содержания штата</span>
+							<button type="button" class="accordion-btn" aria-expanded="false" aria-controls="acc-1" id="acc-btn-1">
+								<span class="accordion-icon" aria-hidden="true">+</span>
+							</button>
+						</div>
+						<div class="accordion-body" id="acc-1" role="region" aria-labelledby="acc-btn-1">
+							<div class="accordion-inner"><p class="accordion-text">Работаем по абонентским договорам: вы платите фиксированную сумму, мы ведём учётные записи, обновления, резервные копии и реагируем на сбои. Штатного сисадмина держать не нужно.</p></div>
+						</div>
+					</div>
+					<div class="accordion-item" data-accordion>
+						<div class="accordion-head">
+							<span class="accordion-title">Экономия времени — вы занимаетесь бизнесом</span>
+							<button type="button" class="accordion-btn" aria-expanded="false" aria-controls="acc-2" id="acc-btn-2">
+								<span class="accordion-icon" aria-hidden="true">+</span>
+							</button>
+						</div>
+						<div class="accordion-body" id="acc-2" role="region" aria-labelledby="acc-btn-2">
+							<div class="accordion-inner"><p class="accordion-text">Все задачи по компьютерам, серверам и сети берём на себя. Ваши сотрудники не отвлекаются на «что-то сломалось» — вы концентрируетесь на развитии компании.</p></div>
+						</div>
+					</div>
+					<div class="accordion-item" data-accordion>
+						<div class="accordion-head">
+							<span class="accordion-title">Гарантия на все работы</span>
+							<button type="button" class="accordion-btn" aria-expanded="false" aria-controls="acc-3" id="acc-btn-3">
+								<span class="accordion-icon" aria-hidden="true">+</span>
+							</button>
+						</div>
+						<div class="accordion-body" id="acc-3" role="region" aria-labelledby="acc-btn-3">
+							<div class="accordion-inner"><p class="accordion-text">На монтаж, настройку и ремонт даём гарантию. Сроки и условия прописаны в договоре — никаких неожиданных доплат за повторный выезд по нашей ошибке.</p></div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion-col">
+					<div class="accordion-item" data-accordion>
+						<div class="accordion-head">
+							<span class="accordion-title">Более 100 объектов в сопровождении</span>
+							<button type="button" class="accordion-btn" aria-expanded="false" aria-controls="acc-4" id="acc-btn-4">
+								<span class="accordion-icon" aria-hidden="true">+</span>
+							</button>
+						</div>
+						<div class="accordion-body" id="acc-4" role="region" aria-labelledby="acc-btn-4">
+							<div class="accordion-inner"><p class="accordion-text">Сейчас ведём более сотни компаний разного масштаба. Опыт позволяет быстро находить причину сбоя и не допускать повторения типичных проблем.</p></div>
+						</div>
+					</div>
+					<div class="accordion-item" data-accordion>
+						<div class="accordion-head">
+							<span class="accordion-title">23 года на рынке</span>
+							<button type="button" class="accordion-btn" aria-expanded="false" aria-controls="acc-5" id="acc-btn-5">
+								<span class="accordion-icon" aria-hidden="true">+</span>
+							</button>
+						</div>
+						<div class="accordion-body" id="acc-5" role="region" aria-labelledby="acc-btn-5">
+							<div class="accordion-inner"><p class="accordion-text">Работаем с 2001 года. Пережили несколько поколений техники и форматов обслуживания — знаем, что нужно бизнесу для стабильной работы IT.</p></div>
+						</div>
+					</div>
+					<div class="accordion-item" data-accordion>
+						<div class="accordion-head">
+							<span class="accordion-title">Прозрачные условия и фиксированные тарифы</span>
+							<button type="button" class="accordion-btn" aria-expanded="false" aria-controls="acc-6" id="acc-btn-6">
+								<span class="accordion-icon" aria-hidden="true">+</span>
+							</button>
+						</div>
+						<div class="accordion-body" id="acc-6" role="region" aria-labelledby="acc-btn-6">
+							<div class="accordion-inner"><p class="accordion-text">Абонентская плата известна заранее, в договоре перечислено, что входит в обслуживание. Доплаты только за работы вне тарифа — по согласованию.</p></div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<section class="container">
-			<h2>Закажите консультацию</h2>
+		<section id="reviews" class="resh-back section-reveal">
+			<div class="container">
+				<h2 class="section-title">Отзывы</h2>
+				<div class="reviews-marquee-wrap">
+					<div class="reviews-marquee">
+						<div class="reviews-track">
+							<div class="review">
+								<div class="avatar" aria-hidden="true"></div>
+								<div class="review-body">
+									<h4>Алексей Иванов</h4>
+									<span class="review-role">Директор ООО «ТехноСфера»</span>
+									<p>Быстро устранили сбои серверов, инфраструктура работает стабильно. Рекомендую.</p>
+								</div>
+							</div>
+							<div class="review">
+								<div class="avatar" aria-hidden="true"></div>
+								<div class="review-body">
+									<h4>Мария Петрова</h4>
+									<span class="review-role">Руководитель отдела, логистика</span>
+									<p>Перешли на абонентское обслуживание — экономим бюджет и не думаем о поломках.</p>
+								</div>
+							</div>
+							<div class="review">
+								<div class="avatar" aria-hidden="true"></div>
+								<div class="review-body">
+									<h4>Дмитрий Козлов</h4>
+									<span class="review-role">ИП, розничная сеть</span>
+									<p>Аудит безопасности провели за неделю, всё по делу. Долго искали таких исполнителей.</p>
+								</div>
+							</div>
+							<div class="review">
+								<div class="avatar" aria-hidden="true"></div>
+								<div class="review-body">
+									<h4>Елена Соколова</h4>
+									<span class="review-role">Главный бухгалтер, производство</span>
+									<p>Настроили резервное копирование и удалённый доступ. Теперь спокойны за данные.</p>
+								</div>
+							</div>
+							<div class="review">
+								<div class="avatar" aria-hidden="true"></div>
+								<div class="review-body">
+									<h4>Андрей Волков</h4>
+									<span class="review-role">Директор, строительная компания</span>
+									<p>Обслуживают 15 рабочих мест и сервер. Реагируют быстро, цены адекватные.</p>
+								</div>
+							</div>
+							<div class="review">
+								<div class="avatar" aria-hidden="true"></div>
+								<div class="review-body">
+									<h4>Ольга Новикова</h4>
+									<span class="review-role">Руководитель офиса, консалтинг</span>
+									<p>Поменяли предыдущую команду на вас — разница заметна. Всё по договору, без сюрпризов.</p>
+								</div>
+							</div>
+						</div>
+						<div class="reviews-track" aria-hidden="true">
+							<div class="review">
+								<div class="avatar" aria-hidden="true"></div>
+								<div class="review-body">
+									<h4>Алексей Иванов</h4>
+									<span class="review-role">Директор ООО «ТехноСфера»</span>
+									<p>Быстро устранили сбои серверов, инфраструктура работает стабильно. Рекомендую.</p>
+								</div>
+							</div>
+							<div class="review">
+								<div class="avatar" aria-hidden="true"></div>
+								<div class="review-body">
+									<h4>Мария Петрова</h4>
+									<span class="review-role">Руководитель отдела, логистика</span>
+									<p>Перешли на абонентское обслуживание — экономим бюджет и не думаем о поломках.</p>
+								</div>
+							</div>
+							<div class="review">
+								<div class="avatar" aria-hidden="true"></div>
+								<div class="review-body">
+									<h4>Дмитрий Козлов</h4>
+									<span class="review-role">ИП, розничная сеть</span>
+									<p>Аудит безопасности провели за неделю, всё по делу. Долго искали таких исполнителей.</p>
+								</div>
+							</div>
+							<div class="review">
+								<div class="avatar" aria-hidden="true"></div>
+								<div class="review-body">
+									<h4>Елена Соколова</h4>
+									<span class="review-role">Главный бухгалтер, производство</span>
+									<p>Настроили резервное копирование и удалённый доступ. Теперь спокойны за данные.</p>
+								</div>
+							</div>
+							<div class="review">
+								<div class="avatar" aria-hidden="true"></div>
+								<div class="review-body">
+									<h4>Андрей Волков</h4>
+									<span class="review-role">Директор, строительная компания</span>
+									<p>Обслуживают 15 рабочих мест и сервер. Реагируют быстро, цены адекватные.</p>
+								</div>
+							</div>
+							<div class="review">
+								<div class="avatar" aria-hidden="true"></div>
+								<div class="review-body">
+									<h4>Ольга Новикова</h4>
+									<span class="review-role">Руководитель офиса, консалтинг</span>
+									<p>Поменяли предыдущую команду на вас — разница заметна. Всё по договору, без сюрпризов.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-			<form class="form">
-				<input placeholder="Имя" />
-				<input placeholder="Email" />
+		<section id="contact" class="container section-reveal">
+			<h2 class="section-title">Заказать консультацию</h2>
+			<p class="section-text form-lead">Оставьте заявку — перезвоним и подберём решение под ваши задачи.</p>
 
-				<input placeholder="Номер телефона" />
-				<input placeholder="Название компании" />
-
-				<input placeholder="Количество рабочих мест" />
-				<input placeholder="Услуга" />
-
-				<textarea placeholder="Комментарий"></textarea>
-
-				<button class="btn-main">Отправить заявку</button>
+			<form class="form card-reveal">
+				<input type="text" placeholder="Имя" />
+				<input type="email" placeholder="Email" />
+				<input type="tel" placeholder="Телефон" />
+				<input type="text" placeholder="Компания" />
+				<input type="text" placeholder="Количество рабочих мест" />
+				<input type="text" placeholder="Интересующая услуга" />
+				<textarea placeholder="Кратко опишите задачу (необязательно)"></textarea>
+				<button type="submit" class="btn-main">Отправить заявку</button>
 			</form>
 		</section>
 
@@ -150,30 +310,275 @@
 			<div class="container footer-grid">
 				<div class="foot-con">
 					<h3 class="logo">We are sysadmins</h3>
-
-					<p>© 2026. Все права защищены.</p>
+					<p>Аутсорс IT. Инфраструктура без сбоев.</p>
+					<p class="footer-copy">© 2026. Все права защищены.</p>
 				</div>
-
 				<div>
-					<h4>Навигация</h4>
-
+					<h4>Разделы</h4>
 					<ul>
-						<li>Главная</li>
-						<li>Проблемы</li>
-						<li>Решения</li>
-						<li>Преимущества</li>
-						<li>Отзывы</li>
+						<li><a href="#">Главная</a></li>
+						<li><a href="#tasks">Задачи</a></li>
+						<li><a href="#solutions">Услуги</a></li>
+						<li><a href="#advantages">Преимущества</a></li>
+						<li><a href="#reviews">Отзывы</a></li>
 					</ul>
 				</div>
-
 				<div>
 					<h4>Контакты</h4>
-
-					<p>Телефон: 8 (812) 111-22-33</p>
-					<p>Email: info@wearesysadmins.ru</p>
-					<p>Адрес: г. Санкт-Петербург</p>
+					<p>8 (812) 111-22-33</p>
+					<p>info@wearesysadmins.ru</p>
+					<p>Санкт-Петербург</p>
 				</div>
 			</div>
 		</footer>
+
+		<script id="hero-shader" type="x-shader/x-fragment">#version 300 es
+/*********
+* made by Matthias Hurrle (@atzedent)
+*/
+precision highp float;
+out vec4 O;
+uniform float time;
+uniform vec2 resolution;
+uniform vec2 move;
+uniform float zoom;
+uniform vec2 wheel;
+
+#define FC gl_FragCoord.xy
+#define R resolution
+#define MN min(R.x,R.y)
+#define T (PI*8.+time)
+#define S smoothstep
+#define SE(v,s) S(s+1./MN,s-1./MN,v)
+#define PI radians(180.)
+
+float box(vec2 p, float s, float r) {
+	p = abs(p) - s + r;
+	return length(max(p, .0)) + min(.0, max(p.x, p.y)) - r;
+}
+
+vec3 pattern(vec2 uv, float tc, float ta) {
+	vec2 o = vec2(2.5, 1.5);
+	vec2 p = uv * 1.5, id = clamp(.5 + round(p / .25 - .5), -o, o);
+	p -= clamp(.5 + round(p / .25 - .5), -o, o) * .25;
+	float d = box(p, .1, .003);
+	vec3 col = vec3(0.);
+	id = vec2(-id.x, -id.y);
+	float k = 3., t = mod(ta * k, 20.);
+	float e = SE(d, .0);
+
+	// тёмные и серые квадраты
+	vec3 darkColor = vec3(0.04, 0.04, 0.04);
+	vec3 grayColor = vec3(0.25, 0.25, 0.25);
+	float cell = mod(floor(id.x + id.y), 2.);
+	vec3 baseColor = mix(darkColor, grayColor, cell);
+	col += baseColor * e;
+
+	if (t > 5. && t <= 15.) {
+		float tt = floor(mod((ta * k - 5.) * 3.5, 35.));
+		vec2 q = abs(id);
+		col *= tt >= floor(q.x + q.y) ? 1. : .125;
+	} else if (t > 15.) {
+		float tt = floor(mod((ta * k - 20.) * 5., 25.));
+		vec2 q = abs(id);
+		col *= tt >= floor(q.x + q.y) ? .125 : 1.;
+	} else {
+		float tt = floor(mod(ta * k * 6., 30.));
+		vec2 q = id + o + .5;
+		col *= tt >= floor(q.x + q.y * (R.x > R.y ? 6. : 4.)) ? 1. : .125;
+	}
+
+	return col;
+}
+
+void divide(inout vec2 p) {
+	p.x = mod(p.x * 2. + .5, 2.) - 1.;
+	p.y -= clamp(round(p.y), .0, 6.);
+}
+
+void main() {
+	vec2 uv = (FC - .5 * R) / MN;
+
+	if (R.y < R.x) {
+		uv = uv.yx;
+	}
+
+	vec3 col = vec3(0);
+
+	float g = R.y < R.x ? abs(uv.y) * .25 : .0;
+	float k = clamp(dot(g, g), .0, 1.);
+	float f = .2;
+	float t = f * T;
+	float tt = T * .5;
+	float wy = -wheel.y / MN;
+
+	uv *= .5;
+
+	vec2 p = vec2(uv.x - k, 0.75) / abs(uv.y) - vec2(0.0 + t * 1.00 - wy * 1.00, -1.);
+	vec2 q = vec2(uv.x - k, 1.25) / abs(uv.y) - vec2(1.0 + t * 0.50 - wy * 0.50, +1.);
+	vec2 r = vec2(uv.x - k, 1.50) / abs(uv.y) - vec2(2.0 + t * 0.25 - wy * 0.25, +1.);
+
+	divide(p);
+	divide(q);
+	divide(r);
+
+	col += pattern(p, t, tt);
+	col += pattern(q, t + (PI / 2.) * f, tt + .2);
+	col += pattern(r, t + PI * f, tt + .4);
+
+	col /= 1. + exp(-col);
+	col = pow(col, vec3(.4545));
+	col = mix(vec3(0), col, min(time * .3, 1.));
+
+	// vignette
+	uv = FC / R;
+	float vig = uv.x * uv.y * (1. - uv.x) * (1. - uv.y);
+	col = mix(col, col * col * .1, S(1., .0, pow(vig * 25., .3)));
+
+	O = vec4(col, 1.);
+}</script>
+
+		<script>
+			(function () {
+				const canvas = document.getElementById('hero-canvas');
+				const shaderScript = document.getElementById('hero-shader');
+
+				if (!canvas || !shaderScript) return;
+
+				const vertexSrc = `#version 300 es
+precision highp float;
+in vec4 position;
+void main() {
+  gl_Position = position;
+}`;
+
+				const fragmentSrc = shaderScript.textContent.trim();
+
+				let wheelOffsetY = 0.0;
+
+				canvas.addEventListener(
+					'wheel',
+					(e) => {
+						wheelOffsetY += e.deltaY;
+					},
+					{ passive: true },
+				);
+
+				const gl = canvas.getContext('webgl2');
+				if (!gl) return;
+
+				const vertices = new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]);
+
+				function createShader(type, source) {
+					const shader = gl.createShader(type);
+					gl.shaderSource(shader, source);
+					gl.compileShader(shader);
+					if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+						console.error(gl.getShaderInfoLog(shader));
+						gl.deleteShader(shader);
+						return null;
+					}
+					return shader;
+				}
+
+				const vs = createShader(gl.VERTEX_SHADER, vertexSrc);
+				const fs = createShader(gl.FRAGMENT_SHADER, fragmentSrc);
+				if (!vs || !fs) return;
+
+				const program = gl.createProgram();
+				gl.attachShader(program, vs);
+				gl.attachShader(program, fs);
+				gl.linkProgram(program);
+
+				if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+					console.error(gl.getProgramInfoLog(program));
+					return;
+				}
+
+				const buffer = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+				gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+				const position = gl.getAttribLocation(program, 'position');
+				gl.enableVertexAttribArray(position);
+				gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+
+				const uResolution = gl.getUniformLocation(program, 'resolution');
+				const uTime = gl.getUniformLocation(program, 'time');
+				const uMove = gl.getUniformLocation(program, 'move');
+				const uZoom = gl.getUniformLocation(program, 'zoom');
+				const uWheel = gl.getUniformLocation(program, 'wheel');
+
+				function resize() {
+					const rect = canvas.parentElement.getBoundingClientRect();
+					const dpr = window.devicePixelRatio || 1;
+					canvas.width = rect.width * dpr;
+					canvas.height = rect.height * dpr;
+					gl.viewport(0, 0, canvas.width, canvas.height);
+				}
+
+				window.addEventListener('resize', resize);
+				resize();
+
+				function render(now) {
+					gl.useProgram(program);
+					gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+
+					gl.uniform2f(uResolution, canvas.width, canvas.height);
+					gl.uniform1f(uTime, now * 0.001);
+					gl.uniform2f(uMove, 0.0, 0.0);
+					gl.uniform1f(uZoom, 0.0);
+					gl.uniform2f(uWheel, 0.0, wheelOffsetY);
+
+					gl.clearColor(0, 0, 0, 1);
+					gl.clear(gl.COLOR_BUFFER_BIT);
+					gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+					requestAnimationFrame(render);
+				}
+
+				requestAnimationFrame(render);
+			})();
+		</script>
+
+		<script>
+			(function () {
+				if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+				var observer = new IntersectionObserver(
+					function (entries) {
+						entries.forEach(function (entry) {
+							if (entry.isIntersecting) entry.target.classList.add('in-view');
+						});
+					},
+					{ rootMargin: '0px 0px -40px 0px', threshold: 0.05 }
+				);
+				document.querySelectorAll('.section-reveal, .cards-reveal').forEach(function (el) {
+					observer.observe(el);
+				});
+			})();
+		</script>
+
+		<script>
+			(function () {
+				document.querySelectorAll('[data-accordion]').forEach(function (item) {
+					var head = item.querySelector('.accordion-head');
+					var btn = item.querySelector('.accordion-btn');
+					var body = item.querySelector('.accordion-body');
+					if (!head || !btn || !body) return;
+					function toggle() {
+						var isOpen = item.classList.toggle('is-open');
+						btn.setAttribute('aria-expanded', isOpen);
+					}
+					head.addEventListener('click', function (e) {
+						e.preventDefault();
+						toggle();
+					});
+					btn.addEventListener('click', function (e) {
+						e.stopPropagation();
+						toggle();
+					});
+				});
+			})();
+		</script>
 	</body>
 </html>
