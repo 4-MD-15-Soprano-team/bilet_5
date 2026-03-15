@@ -1,0 +1,17 @@
+# API и секреты (не коммитить)
+js/supabase-config.js
+.env
+.env.local
+.env.*.local
+
+# Системные и редактор
+.DS_Store
+Thumbs.db
+*.log
+.idea
+.vscode
+
+# Временные файлы
+*.tmp
+*.temp
+.cache

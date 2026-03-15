@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>We are sysadmins</title>
-		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="css/style.css" />
 	</head>
 
 	<body>
@@ -20,7 +20,7 @@
 					<a href="#reviews">Отзывы</a>
 				</nav>
 
-				<button class="btn-outline">Личный кабинет</button>
+				<a href="register.html" class="btn-outline" id="navCabinet">Личный кабинет</a>
 			</div>
 		</header>
 
@@ -34,7 +34,7 @@
 					Аутсорс-поддержка оборудования и систем. Работаем 23 года.
 				</span>
 
-				<button class="btn-main">Заказать консультацию</button>
+				<button type="button" class="btn-main" id="heroOrderBtn">Заказать консультацию</button>
 			</div>
 		</section>
 
@@ -290,21 +290,71 @@
 			</div>
 		</section>
 
-		<section id="contact" class="container section-reveal">
+		<section id="contact" class="container section-reveal section-form-wrap">
 			<h2 class="section-title">Заказать консультацию</h2>
 			<p class="section-text form-lead">Оставьте заявку — перезвоним и подберём решение под ваши задачи.</p>
 
-			<form class="form card-reveal">
-				<input type="text" placeholder="Имя" />
-				<input type="email" placeholder="Email" />
-				<input type="tel" placeholder="Телефон" />
-				<input type="text" placeholder="Компания" />
-				<input type="text" placeholder="Количество рабочих мест" />
-				<input type="text" placeholder="Интересующая услуга" />
-				<textarea placeholder="Кратко опишите задачу (необязательно)"></textarea>
-				<button type="submit" class="btn-main">Отправить заявку</button>
+			<form class="form form-request card-reveal">
+				<div class="form-col form-col-left">
+					<div class="form-field">
+						<label class="form-label" for="request-name">Имя</label>
+						<input type="text" id="request-name" name="name" class="form-input" placeholder="Имя" />
+					</div>
+					<div class="form-field">
+						<label class="form-label" for="request-phone">Номер телефона</label>
+						<input type="tel" id="request-phone" name="phone" class="form-input" placeholder="Номер телефона" />
+					</div>
+					<div class="form-field">
+						<label class="form-label" for="request-workplaces">Количество рабочих мест</label>
+						<input type="text" id="request-workplaces" name="workplaces" class="form-input" placeholder="Количество рабочих мест" />
+					</div>
+				</div>
+				<div class="form-col form-col-right">
+					<div class="form-field">
+						<label class="form-label" for="request-email">Email</label>
+						<input type="email" id="request-email" name="email" class="form-input" placeholder="Email" />
+					</div>
+					<div class="form-field">
+						<label class="form-label" for="request-company">Название компании</label>
+						<input type="text" id="request-company" name="company" class="form-input" placeholder="Название компании" />
+					</div>
+					<div class="form-field">
+						<label class="form-label" for="request-service">Услуга</label>
+						<div class="form-select-wrap">
+							<select id="request-service" name="service" class="form-input form-select" required>
+								<option value="" disabled selected>Выберите услугу</option>
+								<option value="audit-infra">Аудит IT-инфраструктуры</option>
+								<option value="audit-security">Аудит IT-безопасности</option>
+								<option value="network">Настройка локальной сети</option>
+								<option value="backup">Резервное копирование данных</option>
+								<option value="equipment">Обслуживание оргтехники</option>
+							</select>
+							<svg class="form-select-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+								<path d="M6 9l6 6 6-6"/>
+							</svg>
+						</div>
+					</div>
+				</div>
+				<div class="form-field form-field-full">
+					<label class="form-label" for="request-comment">Комментарий</label>
+					<textarea id="request-comment" name="comment" class="form-input form-textarea" placeholder="Комментарий" rows="4"></textarea>
+				</div>
+				<div class="form-submit-wrap">
+					<button type="submit" class="btn-main">Отправить заявку</button>
+				</div>
 			</form>
 		</section>
+
+		<!-- Модальное окно: для заявки нужно войти или зарегистрироваться -->
+		<div class="auth-required-overlay" id="authRequiredOverlay" aria-hidden="true">
+			<div class="auth-required-modal" role="dialog" aria-labelledby="authRequiredTitle">
+				<h2 class="auth-required-title" id="authRequiredTitle">Чтобы оставить заявку, вам необходимо зарегистрироваться или войти в ваш аккаунт</h2>
+				<div class="auth-required-actions">
+					<button type="button" class="btn-outline auth-required-cancel" id="authRequiredCancel">Отмена</button>
+					<a href="register.html" class="btn-main auth-required-register" id="authRequiredRegister">Зарегистрироваться</a>
+				</div>
+			</div>
+		</div>
 
 		<footer class="footer">
 			<div class="container footer-grid">
@@ -578,6 +628,112 @@ void main() {
 						toggle();
 					});
 				});
+			})();
+		</script>
+
+		<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+		<script src="js/supabase-config.js"></script>
+		<script>
+			(function () {
+				if (typeof window.supabase === 'undefined' || !window.SUPABASE_URL) return;
+				var supabase = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+				var form = document.querySelector('.form.form-request');
+				var overlay = document.getElementById('authRequiredOverlay');
+				var btnCancel = document.getElementById('authRequiredCancel');
+				var btnRegister = document.getElementById('authRequiredRegister');
+
+				function openAuthModal() {
+					if (overlay) {
+						overlay.classList.add('is-open');
+						overlay.setAttribute('aria-hidden', 'false');
+						document.body.style.overflow = 'hidden';
+					}
+				}
+				function closeAuthModal() {
+					if (overlay) {
+						overlay.classList.remove('is-open');
+						overlay.setAttribute('aria-hidden', 'true');
+						document.body.style.overflow = '';
+					}
+				}
+
+				function checkAuthThenSubmit(e) {
+					e.preventDefault();
+					supabase.auth.getUser().then(function (res) {
+						var user = res.data && res.data.user;
+						if (!user) {
+							openAuthModal();
+							return;
+						}
+						var name = (document.getElementById('request-name') && document.getElementById('request-name').value) || '';
+						var email = (document.getElementById('request-email') && document.getElementById('request-email').value) || '';
+						var phone = (document.getElementById('request-phone') && document.getElementById('request-phone').value) || '';
+						var company = (document.getElementById('request-company') && document.getElementById('request-company').value) || '';
+						var workplaces = (document.getElementById('request-workplaces') && document.getElementById('request-workplaces').value) || '';
+						var service = (document.getElementById('request-service') && document.getElementById('request-service').value) || '';
+						var comment = (document.getElementById('request-comment') && document.getElementById('request-comment').value) || '';
+						supabase.from('applications').insert({
+							user_id: user.id,
+							name: name.trim(),
+							email: email.trim(),
+							phone: phone.trim(),
+							company: company.trim(),
+							workplaces: workplaces.trim(),
+							service: service.trim(),
+							comment: comment.trim(),
+							status: 'new'
+						}).then(function (r) {
+							if (r.error) {
+								alert('Ошибка при отправке заявки.');
+								return;
+							}
+							alert('Заявка отправлена.');
+							form.reset();
+						});
+					});
+				}
+
+				function onFormFocus() {
+					supabase.auth.getUser().then(function (res) {
+						if (!(res.data && res.data.user)) openAuthModal();
+					});
+				}
+
+				if (form) {
+					form.addEventListener('submit', checkAuthThenSubmit);
+					var inputs = form.querySelectorAll('input, select, textarea');
+					inputs.forEach(function (el) {
+						el.addEventListener('focus', onFormFocus);
+					});
+				}
+				if (btnCancel) btnCancel.addEventListener('click', closeAuthModal);
+				if (overlay) overlay.addEventListener('click', function (e) {
+					if (e.target === overlay) closeAuthModal();
+				});
+				document.addEventListener('keydown', function (e) {
+					if (e.key === 'Escape' && overlay && overlay.classList.contains('is-open')) closeAuthModal();
+				});
+
+				var navCabinet = document.getElementById('navCabinet');
+				if (navCabinet) {
+					supabase.auth.getSession().then(function (res) {
+						if (res.data && res.data.session) navCabinet.href = 'profile.html';
+					});
+				}
+
+				var heroOrderBtn = document.getElementById('heroOrderBtn');
+				if (heroOrderBtn) {
+					heroOrderBtn.addEventListener('click', function () {
+						supabase.auth.getSession().then(function (res) {
+							if (res.data && res.data.session) {
+								var contact = document.getElementById('contact');
+								if (contact) contact.scrollIntoView({ behavior: 'smooth', block: 'start' });
+							} else {
+								openAuthModal();
+							}
+						});
+					});
+				}
 			})();
 		</script>
 	</body>

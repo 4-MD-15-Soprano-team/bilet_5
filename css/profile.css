@@ -1,0 +1,739 @@
+/* Страница профиля — тёмная тема, карточки, лайм-акцент */
+
+@font-face {
+	font-family: 'TacticSans';
+	src: url('../fonts/TacticSansExd-Bld.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.profile-page {
+	background: #000;
+	color: #fff;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	font-size: 16px;
+	min-height: 100vh;
+}
+
+.profile-container {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 24px 20px 48px;
+}
+
+/* Шапка */
+.profile-header {
+	border-bottom: 1px solid #bded45;
+}
+
+.profile-nav {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	gap: 16px;
+	padding: 36px 20px;
+}
+
+.profile-logo {
+	color: #bded45;
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+	font-size: 20px;
+	text-decoration: none;
+	justify-self: start;
+}
+
+.profile-nav-links {
+	justify-self: center;
+	white-space: nowrap;
+}
+
+.profile-nav-links a {
+	color: #fff;
+	text-decoration: none;
+	margin: 0 10px;
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	transition: text-shadow 0.3s ease, transform 0.3s ease;
+	display: inline-block;
+}
+
+.profile-nav-links a:hover {
+	text-shadow: 0 0 12px #bded45, 0 0 24px rgba(189, 237, 69, 0.5);
+	transform: scale(1.08);
+}
+
+/* Имя пользователя справа — как кнопка «Личный кабинет» на главной */
+.profile-nav-user {
+	justify-self: end;
+	min-width: 0;
+	background: transparent;
+	border: 1px solid #b6ff00;
+	color: #fff;
+	padding: 8px 16px;
+	border-radius: 8px;
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+	font-size: 16px;
+}
+
+/* Основной контент */
+.profile-main {
+	padding: 32px 0 48px;
+}
+
+.profile-row {
+	display: grid;
+	gap: 24px;
+	margin-bottom: 24px;
+}
+
+.profile-row-top {
+	grid-template-columns: 2fr 1fr;
+}
+
+.profile-row-bottom {
+	grid-template-columns: 2fr 1fr;
+}
+
+/* Карточки */
+.profile-card {
+	background: #282828;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 12px;
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+}
+
+.profile-card-title {
+	font-size: 18px;
+	font-weight: 700;
+	color: #fff;
+	margin-bottom: 20px;
+}
+
+/* Профиль пользователя — две колонки: поля + аватар */
+.profile-card-user-inner {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 24px;
+	align-items: stretch;
+	flex: 1;
+}
+
+.profile-fields {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.profile-card-user .profile-fields {
+	max-width: 500px;
+}
+
+.profile-field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.profile-label {
+	font-size: 13px;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.profile-input {
+	background: #1a1a1a;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	border-radius: 8px;
+	color: #fff;
+	padding: 12px 14px;
+	font-size: 15px;
+	outline: none;
+}
+
+.profile-input::placeholder {
+	color: rgba(255, 255, 255, 0.4);
+}
+
+.profile-input:focus {
+	border-color: #bded45;
+}
+
+/* Плейсхолдер аватара: верх на уровне инпута «Имя», низ на уровне низа инпута «Номер телефона» */
+.profile-avatar-wrap {
+	flex-shrink: 0;
+	display: flex;
+	align-items: stretch;
+}
+
+.profile-avatar {
+	width: 200px;
+	margin-top: 22px;
+	height: calc(100% - 22px);
+	min-height: 120px;
+	background: #1f1f1f;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.profile-avatar-icon {
+	width: 48px;
+	height: 48px;
+}
+
+/* Кнопки в карточках */
+.profile-card-actions {
+	display: flex;
+	gap: 12px;
+	margin-top: 24px;
+	padding-top: 20px;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.profile-card-actions-end {
+	justify-content: flex-end;
+}
+
+.profile-card-user .profile-card-actions .profile-btn-outline {
+	margin-left: 260px;
+}
+
+.profile-card-tickets .profile-card-actions .profile-btn-outline {
+	margin-left: auto;
+}
+
+.profile-card-work .profile-card-actions .profile-btn {
+	width: 100%;
+}
+
+.profile-btn {
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+	font-size: 16px;
+	padding: 8px 16px;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.profile-btn-outline {
+	background: transparent;
+	border: 1px solid #b6ff00;
+	color: #fff;
+	transition: background 0.25s ease, color 0.25s ease;
+}
+
+.profile-btn-outline:hover {
+	background: #bded45;
+	color: #0a0a0a;
+}
+
+.profile-btn-primary {
+	background: #bded45;
+	border: 2px solid transparent;
+	color: #0a0a0a;
+}
+
+.profile-btn-primary:hover {
+	background: transparent;
+	border-color: #bded45;
+	color: #fff;
+}
+
+/* Список заявок */
+.profile-ticket-list {
+	list-style: none;
+}
+
+.profile-ticket-item {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 16px 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.profile-ticket-item:last-of-type {
+	border-bottom: none;
+}
+
+.profile-ticket-main {
+	flex: 1;
+	min-width: 0;
+}
+
+.profile-ticket-num {
+	color: #bded45;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.profile-ticket-num-btn {
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	font: inherit;
+	font-weight: 600;
+	font-size: 14px;
+	color: #bded45;
+	display: inline-block;
+	text-align: left;
+}
+
+.profile-ticket-num-btn:hover {
+	text-decoration: underline;
+}
+
+.profile-ticket-desc {
+	font-size: 16px;
+	font-weight: 500;
+	color: #fff;
+	margin-bottom: 6px;
+	line-height: 1.35;
+}
+
+.profile-ticket-date {
+	font-size: 13px;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.profile-ticket-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: center;
+	flex-shrink: 0;
+}
+
+.profile-tag {
+	display: inline-block;
+	padding: 4px 10px;
+	border-radius: 6px;
+	font-size: 12px;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.profile-tag-priority {
+	background: #bded45;
+	color: #0a0a0a;
+}
+
+.profile-tag-status {
+	background: none;
+	border: none;
+	color: rgba(255, 255, 255, 0.55);
+	padding: 0;
+	font-weight: 500;
+}
+
+.profile-tag-medium {
+	background: #e6c229;
+	color: #0a0a0a;
+}
+
+/* Сводка заявок */
+.profile-card-summary {
+	justify-content: flex-start;
+}
+
+.profile-summary-item {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 20px;
+	padding: 12px 20px;
+	border: 1px solid #bded45;
+	border-radius: 8px;
+	background: #282828;
+}
+
+.profile-summary-item:last-child {
+	margin-bottom: 0;
+}
+
+.profile-summary-label {
+	font-size: 15px;
+	color: #fff;
+}
+
+.profile-summary-value {
+	font-size: 28px;
+	font-weight: 700;
+	color: #bded45;
+}
+
+/* Модальное окно редактирования профиля */
+.profile-modal-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.profile-modal-overlay.is-open {
+	opacity: 1;
+	visibility: visible;
+}
+
+.profile-modal {
+	background: #282828;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 12px;
+	padding: 24px;
+	max-width: 720px;
+	width: 100%;
+	max-height: calc(100vh - 48px);
+	overflow-y: auto;
+	box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+	position: relative;
+}
+
+.profile-modal-header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 20px;
+}
+
+.profile-modal-header .profile-card-title {
+	margin-bottom: 0;
+}
+
+.profile-modal-close {
+	position: relative;
+	flex-shrink: 0;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	border: none;
+	background: transparent;
+	color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: color 0.2s ease, background 0.2s ease;
+}
+
+.profile-modal-close:hover {
+	color: #fff;
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.profile-modal .profile-card-user .profile-fields,
+.profile-modal-inner .profile-fields {
+	max-width: none;
+}
+
+.profile-modal-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin-top: 24px;
+	padding-top: 20px;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.profile-avatar-img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 12px;
+}
+
+.profile-modal .profile-avatar,
+.profile-card .profile-avatar {
+	position: relative;
+}
+
+/* Модальное окно «Новая заявка» — форма как на главной */
+.profile-modal-request {
+	max-width: 640px;
+}
+
+.form-request-modal {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px 32px;
+}
+
+.form-request-modal .form-col {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.form-request-modal .form-field-full {
+	grid-column: 1 / -1;
+}
+
+.form-request-modal .form-submit-wrap {
+	grid-column: 1 / -1;
+	display: flex;
+	justify-content: center;
+	margin-top: 8px;
+}
+
+.form-request-modal .form-label {
+	display: block;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 500;
+	margin-bottom: 8px;
+}
+
+.form-request-modal .form-field {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-request-modal .form-input,
+.form-request-modal .form-select,
+.form-request-modal .form-textarea {
+	background: #1a1a1a;
+	border: 1px solid #bded45;
+	border-radius: 8px;
+	color: #fff;
+	padding: 12px 16px;
+	font-size: 16px;
+	outline: none;
+	width: 100%;
+}
+
+.form-request-modal .form-input::placeholder,
+.form-request-modal .form-textarea::placeholder {
+	color: rgba(255, 255, 255, 0.4);
+}
+
+.form-request-modal .form-input:focus,
+.form-request-modal .form-select:focus,
+.form-request-modal .form-textarea:focus {
+	box-shadow: 0 0 0 2px rgba(189, 237, 69, 0.25);
+}
+
+.form-request-modal .form-textarea {
+	height: 100px;
+	min-height: 100px;
+	resize: vertical;
+}
+
+.form-request-modal .form-select-wrap {
+	position: relative;
+	display: block;
+}
+
+.form-request-modal .form-select {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	padding-right: 44px;
+	cursor: pointer;
+}
+
+.form-request-modal .form-select-chevron {
+	position: absolute;
+	right: 14px;
+	top: 50%;
+	transform: translateY(-50%);
+	pointer-events: none;
+	color: #bded45;
+}
+
+.form-request-modal .form-select option {
+	background: #1a1a1a;
+	color: #fff;
+}
+
+@media (max-width: 640px) {
+	.form-request-modal {
+		grid-template-columns: 1fr;
+	}
+	.form-request-modal .form-field-full,
+	.form-request-modal .form-submit-wrap {
+		grid-column: 1;
+	}
+}
+
+/* Модальное окно «Все заявки» — прокручиваемый список */
+.profile-modal-tickets .profile-modal-header {
+	margin-bottom: 16px;
+}
+
+.profile-modal-tickets-body {
+	max-height: min(60vh, 400px);
+	overflow-y: auto;
+	padding-right: 4px;
+}
+
+.profile-modal-tickets-body .profile-ticket-list {
+	padding: 0;
+}
+
+/* Модальное окно «Подробности заявки» */
+.profile-ticket-detail-body {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.profile-ticket-detail-row {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.profile-ticket-detail-label {
+	font-size: 13px;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.profile-ticket-detail-value {
+	font-size: 15px;
+	color: #fff;
+	margin: 0;
+	line-height: 1.4;
+}
+
+/* Футер — как на главной */
+.profile-footer {
+	background: #000;
+	border-top: 1px solid #bded45;
+	padding: 40px 0;
+	margin-top: 48px;
+}
+
+.profile-footer .profile-container {
+	padding: 0 20px;
+}
+
+.profile-footer-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 40px;
+}
+
+.profile-footer ul,
+.profile-footer-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.profile-footer li {
+	margin: 8px 0;
+}
+
+.profile-footer a {
+	color: rgba(255, 255, 255, 0.9);
+	text-decoration: none;
+}
+
+.profile-footer a:hover {
+	color: #bded45;
+}
+
+.profile-footer-copy {
+	margin-top: 16px;
+	color: rgba(255, 255, 255, 0.6);
+	font-size: 14px;
+}
+
+.profile-foot-con {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.profile-footer-logo {
+	color: #bded45;
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+	font-size: 20px;
+	margin: 0 0 8px 0;
+}
+
+.profile-footer-heading {
+	font-size: 16px;
+	font-weight: 600;
+	color: #fff;
+	margin: 0 0 12px 0;
+}
+
+.profile-footer p {
+	margin: 0 0 4px 0;
+	color: rgba(255, 255, 255, 0.9);
+	font-size: 15px;
+}
+
+/* Адаптив */
+@media (max-width: 900px) {
+	.profile-row-top {
+		grid-template-columns: 1fr;
+	}
+
+	.profile-row-bottom {
+		grid-template-columns: 1fr;
+	}
+
+	.profile-card-user-inner {
+		grid-template-columns: 1fr;
+	}
+
+	.profile-avatar-wrap {
+		justify-self: start;
+	}
+}
+
+@media (max-width: 600px) {
+	.profile-ticket-item {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.profile-nav {
+		flex-wrap: wrap;
+		gap: 12px;
+	}
+
+	.profile-nav-links a {
+		margin-left: 0;
+		margin-right: 16px;
+	}
+
+	.profile-footer-grid {
+		grid-template-columns: 1fr;
+		gap: 24px;
+	}
+}
