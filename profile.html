@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Профиль пользователя — We are sysadmins</title>
+		<link rel="stylesheet" href="css/profile.css" />
+	</head>
+	<body class="profile-page">
+		<header class="profile-header">
+			<div class="profile-container profile-nav">
+				<a href="index.html" class="profile-logo">We are sysadmins</a>
+				<nav class="profile-nav-links">
+					<a href="index.html">Главная</a>
+					<a href="index.html#tasks">Задачи</a>
+					<a href="index.html#solutions">Услуги</a>
+					<a href="index.html#advantages">Преимущества</a>
+					<a href="index.html#reviews">Отзывы</a>
+				</nav>
+				<span class="profile-nav-user" id="profileNavUserName"></span>
+			</div>
+		</header>
+
+		<main class="profile-main">
+			<div class="profile-container">
+				<!-- Верхний ряд: Профиль + Рабочая информация -->
+				<div class="profile-row profile-row-top">
+					<section class="profile-card profile-card-user">
+						<h1 class="profile-card-title">Профиль пользователя</h1>
+						<div class="profile-card-user-inner">
+							<div class="profile-fields">
+								<div class="profile-field">
+									<label class="profile-label">Имя</label>
+									<input type="text" class="profile-input" id="cardName" value="" readonly />
+								</div>
+								<div class="profile-field">
+									<label class="profile-label">Email</label>
+									<input type="email" class="profile-input" id="cardEmail" value="" readonly />
+								</div>
+								<div class="profile-field">
+									<label class="profile-label">Номер телефона</label>
+									<input type="tel" class="profile-input" id="cardPhone" value="" readonly />
+								</div>
+							</div>
+							<div class="profile-avatar-wrap">
+								<div class="profile-avatar" id="cardAvatarWrap">
+									<svg class="profile-avatar-icon profile-avatar-icon-fallback" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+										<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+										<circle cx="12" cy="13" r="4"/>
+									</svg>
+									<img class="profile-avatar-img" id="cardAvatarImg" src="" alt="Фото профиля" decoding="async" style="display: none;" />
+								</div>
+							</div>
+						</div>
+						<div class="profile-card-actions">
+							<button type="button" class="profile-btn profile-btn-primary" data-profile-edit>Редактировать</button>
+							<button type="button" class="profile-btn profile-btn-outline" data-logout>Выйти из профиля</button>
+						</div>
+					</section>
+
+					<section class="profile-card profile-card-work">
+						<h2 class="profile-card-title">Рабочая информация</h2>
+						<div class="profile-fields">
+							<div class="profile-field">
+								<label class="profile-label">Название компании</label>
+								<input type="text" class="profile-input" id="cardWorkCompany" value="" placeholder="Не заполнено" readonly />
+							</div>
+							<div class="profile-field">
+								<label class="profile-label">Должность</label>
+								<input type="text" class="profile-input" id="cardWorkPosition" value="" placeholder="Не заполнено" readonly />
+							</div>
+							<div class="profile-field">
+								<label class="profile-label">Отдел</label>
+								<input type="text" class="profile-input" id="cardWorkDepartment" value="Не заполнено" placeholder="Не заполнено" readonly />
+							</div>
+						</div>
+						<div class="profile-card-actions profile-card-actions-end">
+							<button type="button" class="profile-btn profile-btn-primary" data-work-edit>Редактировать</button>
+						</div>
+					</section>
+				</div>
+
+				<!-- Нижний ряд: Мои заявки + Сводка -->
+				<div class="profile-row profile-row-bottom">
+					<section class="profile-card profile-card-tickets">
+						<h2 class="profile-card-title">Мои заявки</h2>
+						<ul class="profile-ticket-list" id="profileTicketList">
+							<!-- Заполняется из БД -->
+						</ul>
+						<div class="profile-card-actions">
+							<button type="button" class="profile-btn profile-btn-primary" data-create-request>Создать новую заявку</button>
+							<button type="button" class="profile-btn profile-btn-outline" data-tickets-open>Посмотреть все заявки</button>
+						</div>
+					</section>
+
+					<section class="profile-card profile-card-summary">
+						<div class="profile-summary-item">
+							<span class="profile-summary-label">Всего заявок:</span>
+							<span class="profile-summary-value" id="summaryTotal">0</span>
+						</div>
+						<div class="profile-summary-item">
+							<span class="profile-summary-label">Активных:</span>
+							<span class="profile-summary-value" id="summaryActive">0</span>
+						</div>
+						<div class="profile-summary-item">
+							<span class="profile-summary-label">Решённых:</span>
+							<span class="profile-summary-value" id="summarySolved">0</span>
+						</div>
+						<div class="profile-summary-item">
+							<span class="profile-summary-label">Не завершённых:</span>
+							<span class="profile-summary-value" id="summaryUnfinished">0</span>
+						</div>
+					</section>
+				</div>
+			</div>
+		</main>
+
+		<!-- Модальное окно редактирования профиля -->
+		<div class="profile-modal-overlay" id="profileModalOverlay" aria-hidden="true">
+			<div class="profile-modal" role="dialog" aria-labelledby="profileModalTitle">
+				<div class="profile-modal-header">
+					<h2 class="profile-card-title" id="profileModalTitle">Профиль пользователя</h2>
+					<button type="button" class="profile-modal-close" id="profileModalClose" aria-label="Закрыть">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M18 6L6 18M6 6l12 12"/>
+						</svg>
+					</button>
+				</div>
+				<div class="profile-card-user-inner profile-modal-inner">
+					<div class="profile-fields">
+						<div class="profile-field">
+							<label class="profile-label">Имя</label>
+							<input type="text" class="profile-input profile-modal-input" id="modalName" value="" />
+						</div>
+						<div class="profile-field">
+							<label class="profile-label">Email</label>
+							<input type="email" class="profile-input profile-modal-input" id="modalEmail" value="" />
+						</div>
+						<div class="profile-field">
+							<label class="profile-label">Номер телефона</label>
+							<input type="tel" class="profile-input profile-modal-input" id="modalPhone" value="" />
+						</div>
+					</div>
+					<div class="profile-avatar-wrap">
+						<div class="profile-avatar" id="modalAvatarPreview">
+							<svg class="profile-avatar-icon profile-avatar-icon-fallback" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+								<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+								<circle cx="12" cy="13" r="4"/>
+							</svg>
+							<img class="profile-avatar-img" id="modalAvatarImg" src="" alt="" decoding="async" style="display: none;" />
+						</div>
+						<input type="file" class="profile-avatar-file-input" id="modalAvatarFile" accept="image/*" hidden />
+					</div>
+				</div>
+				<div class="profile-modal-actions">
+					<button type="button" class="profile-btn profile-btn-primary" id="profileModalSave">Сохранить изменения</button>
+					<button type="button" class="profile-btn profile-btn-outline" id="profileModalAddPhoto">Добавить фото профиля</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Модальное окно: изменить фото (добавить новое / убрать) -->
+		<div class="profile-modal-overlay" id="changePhotoModalOverlay" aria-hidden="true">
+			<div class="profile-modal profile-modal-work" role="dialog" aria-labelledby="changePhotoModalTitle">
+				<div class="profile-modal-header">
+					<h2 class="profile-card-title" id="changePhotoModalTitle">Фото профиля</h2>
+					<button type="button" class="profile-modal-close" id="changePhotoModalClose" aria-label="Закрыть">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M18 6L6 18M6 6l12 12"/>
+						</svg>
+					</button>
+				</div>
+				<div class="profile-modal-actions" style="flex-direction: column; gap: 12px;">
+					<button type="button" class="profile-btn profile-btn-primary" id="changePhotoAddNew">Добавить новое фото</button>
+					<button type="button" class="profile-btn profile-btn-outline" id="changePhotoRemove">Убрать фото</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Модальное окно редактирования рабочей информации -->
+		<div class="profile-modal-overlay" id="workModalOverlay" aria-hidden="true">
+			<div class="profile-modal profile-modal-work" role="dialog" aria-labelledby="workModalTitle">
+				<div class="profile-modal-header">
+					<h2 class="profile-card-title" id="workModalTitle">Рабочая информация</h2>
+					<button type="button" class="profile-modal-close" id="workModalClose" aria-label="Закрыть">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M18 6L6 18M6 6l12 12"/>
+						</svg>
+					</button>
+				</div>
+				<div class="profile-fields">
+					<div class="profile-field">
+						<label class="profile-label">Название компании</label>
+						<input type="text" class="profile-input" id="modalWorkCompany" value="" />
+					</div>
+					<div class="profile-field">
+						<label class="profile-label">Должность</label>
+						<input type="text" class="profile-input" id="modalWorkPosition" value="" />
+					</div>
+					<div class="profile-field">
+						<label class="profile-label">Отдел</label>
+						<input type="text" class="profile-input" id="modalWorkDepartment" value="" placeholder="Не заполнено" />
+					</div>
+				</div>
+				<div class="profile-modal-actions">
+					<button type="button" class="profile-btn profile-btn-primary" id="workModalSave">Сохранить изменения</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Модальное окно «Все заявки» -->
+		<div class="profile-modal-overlay" id="ticketsModalOverlay" aria-hidden="true">
+			<div class="profile-modal profile-modal-tickets" role="dialog" aria-labelledby="ticketsModalTitle">
+				<div class="profile-modal-header">
+					<h2 class="profile-card-title" id="ticketsModalTitle">Все заявки</h2>
+					<button type="button" class="profile-modal-close" id="ticketsModalClose" aria-label="Закрыть">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M18 6L6 18M6 6l12 12"/>
+						</svg>
+					</button>
+				</div>
+				<div class="profile-modal-tickets-body">
+					<ul class="profile-ticket-list" id="ticketsModalList">
+						<!-- Заполняется из БД -->
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- Модальное окно «Подробности заявки» -->
+		<div class="profile-modal-overlay" id="ticketDetailModalOverlay" aria-hidden="true">
+			<div class="profile-modal profile-modal-detail" role="dialog" aria-labelledby="ticketDetailModalTitle">
+				<div class="profile-modal-header">
+					<h2 class="profile-card-title" id="ticketDetailModalTitle">Заявка №0000</h2>
+					<button type="button" class="profile-modal-close" id="ticketDetailModalClose" aria-label="Закрыть">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M18 6L6 18M6 6l12 12"/>
+						</svg>
+					</button>
+				</div>
+				<div class="profile-ticket-detail-body">
+					<div class="profile-ticket-detail-row">
+						<span class="profile-ticket-detail-label">Описание</span>
+						<p class="profile-ticket-detail-value" id="ticketDetailDesc">—</p>
+					</div>
+					<div class="profile-ticket-detail-row">
+						<span class="profile-ticket-detail-label">Дата создания</span>
+						<p class="profile-ticket-detail-value" id="ticketDetailDate">—</p>
+					</div>
+					<div class="profile-ticket-detail-row">
+						<span class="profile-ticket-detail-label">Статус</span>
+						<p class="profile-ticket-detail-value" id="ticketDetailStatus">—</p>
+					</div>
+				</div>
+				<div class="profile-modal-actions">
+					<button type="button" class="profile-btn profile-btn-outline" id="ticketDetailDelete">Удалить</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Модальное окно подтверждения выхода -->
+		<div class="profile-modal-overlay" id="logoutConfirmOverlay" aria-hidden="true">
+			<div class="profile-modal profile-modal-detail" role="dialog" aria-labelledby="logoutConfirmTitle">
+				<div class="profile-modal-header">
+					<h2 class="profile-card-title" id="logoutConfirmTitle">Вы уверены, что хотите выйти?</h2>
+					<button type="button" class="profile-modal-close" id="logoutConfirmClose" aria-label="Закрыть">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M18 6L6 18M6 6l12 12"/>
+						</svg>
+					</button>
+				</div>
+				<div class="profile-modal-actions" style="justify-content: space-between;">
+					<button type="button" class="profile-btn profile-btn-outline" id="logoutConfirmNo">Нет</button>
+					<button type="button" class="profile-btn profile-btn-primary" id="logoutConfirmYes">Да</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Модальное окно «Новая заявка» (форма как на главной) -->
+		<div class="profile-modal-overlay" id="requestModalOverlay" aria-hidden="true">
+			<div class="profile-modal profile-modal-request" role="dialog" aria-labelledby="requestModalTitle">
+				<div class="profile-modal-header">
+					<h2 class="profile-card-title" id="requestModalTitle">Заявка</h2>
+					<button type="button" class="profile-modal-close" id="requestModalClose" aria-label="Закрыть">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M18 6L6 18M6 6l12 12"/>
+						</svg>
+					</button>
+				</div>
+				<form class="form-request form-request-modal">
+					<div class="form-col form-col-left">
+						<div class="form-field">
+							<label class="form-label" for="modal-request-name">Имя</label>
+							<input type="text" id="modal-request-name" name="name" class="form-input" placeholder="Имя" />
+						</div>
+						<div class="form-field">
+							<label class="form-label" for="modal-request-phone">Номер телефона</label>
+							<input type="tel" id="modal-request-phone" name="phone" class="form-input" placeholder="Номер телефона" />
+						</div>
+						<div class="form-field">
+							<label class="form-label" for="modal-request-workplaces">Количество рабочих мест</label>
+							<input type="text" id="modal-request-workplaces" name="workplaces" class="form-input" placeholder="Количество рабочих мест" />
+						</div>
+					</div>
+					<div class="form-col form-col-right">
+						<div class="form-field">
+							<label class="form-label" for="modal-request-email">Email</label>
+							<input type="email" id="modal-request-email" name="email" class="form-input" placeholder="Email" />
+						</div>
+						<div class="form-field">
+							<label class="form-label" for="modal-request-company">Название компании</label>
+							<input type="text" id="modal-request-company" name="company" class="form-input" placeholder="Название компании" />
+						</div>
+						<div class="form-field">
+							<label class="form-label" for="modal-request-service">Услуга</label>
+							<div class="form-select-wrap">
+								<select id="modal-request-service" name="service" class="form-input form-select" required>
+									<option value="" disabled selected>Выберите услугу</option>
+									<option value="audit-infra">Аудит IT-инфраструктуры</option>
+									<option value="audit-security">Аудит IT-безопасности</option>
+									<option value="network">Настройка локальной сети</option>
+									<option value="backup">Резервное копирование данных</option>
+									<option value="equipment">Обслуживание оргтехники</option>
+								</select>
+								<svg class="form-select-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+									<path d="M6 9l6 6 6-6"/>
+								</svg>
+							</div>
+						</div>
+					</div>
+					<div class="form-field form-field-full">
+						<label class="form-label" for="modal-request-comment">Комментарий</label>
+						<textarea id="modal-request-comment" name="comment" class="form-input form-textarea" placeholder="Комментарий" rows="4"></textarea>
+					</div>
+					<div class="form-submit-wrap">
+						<button type="submit" class="profile-btn profile-btn-primary">Отправить заявку</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<footer class="profile-footer">
+			<div class="profile-container profile-footer-grid">
+				<div class="profile-foot-con">
+					<h3 class="profile-footer-logo">We are sysadmins</h3>
+					<p>Аутсорс IT. Инфраструктура без сбоев.</p>
+					<p class="profile-footer-copy">© 2026. Все права защищены.</p>
+				</div>
+				<div>
+					<h4 class="profile-footer-heading">Разделы</h4>
+					<ul class="profile-footer-list">
+						<li><a href="index.html">Главная</a></li>
+						<li><a href="index.html#tasks">Задачи</a></li>
+						<li><a href="index.html#solutions">Услуги</a></li>
+						<li><a href="index.html#advantages">Преимущества</a></li>
+						<li><a href="index.html#reviews">Отзывы</a></li>
+					</ul>
+				</div>
+				<div>
+					<h4 class="profile-footer-heading">Контакты</h4>
+					<p>8 (812) 111-22-33</p>
+					<p>info@wearesysadmins.ru</p>
+					<p>Санкт-Петербург</p>
+				</div>
+			</div>
+		</footer>
+
+		<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+		<script src="js/supabase-config.js"></script>
+		<script src="js/profile.js"></script>
+	</body>
+</html>

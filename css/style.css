@@ -1,13 +1,13 @@
 @font-face {
 	font-family: 'RobotoCustom';
-	src: url('./fonts/Roboto-Regular.ttf') format('truetype');
+	src: url('../fonts/Roboto-Regular.ttf') format('truetype');
 	font-weight: 400;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'TacticSans';
-	src: url('./fonts/TacticSansExd-Bld.ttf') format('truetype');
+	src: url('../fonts/TacticSansExd-Bld.ttf') format('truetype');
 	font-weight: 700;
 	font-style: normal;
 }
@@ -312,9 +312,7 @@ nav a:hover {
 }
 
 #reviews .avatar {
-	width: 44px;
-	height: 44px;
-	flex-shrink: 0;
+	display: none;
 }
 
 #reviews .review-body h4 {
@@ -680,8 +678,116 @@ section:last-of-type::after {
 
 .form button {
 	grid-column: 1/3;
-
 	margin: auto;
+}
+
+/* Форма заявки — два столбца, подписи, выпадающий список */
+.form-request {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px 32px;
+	background: #141414;
+	border: none;
+	border-radius: 12px;
+	padding: 40px;
+}
+
+.form-request .form-col {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.form-request .form-field-full {
+	grid-column: 1 / -1;
+}
+
+.form-request .form-submit-wrap {
+	grid-column: 1 / -1;
+	display: flex;
+	justify-content: center;
+	margin-top: 8px;
+}
+
+.form-label {
+	display: block;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 500;
+	margin-bottom: 8px;
+}
+
+.form-field {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-request .form-input,
+.form-request .form-select,
+.form-request .form-textarea {
+	background: #1a1a1a;
+	border: 1px solid #bded45;
+	border-radius: 8px;
+	color: #fff;
+	padding: 12px 16px;
+	font-size: 16px;
+	outline: none;
+	width: 100%;
+}
+
+.form-request .form-input::placeholder,
+.form-request .form-textarea::placeholder {
+	color: rgba(255, 255, 255, 0.4);
+}
+
+.form-request .form-input:focus,
+.form-request .form-select:focus,
+.form-request .form-textarea:focus {
+	box-shadow: 0 0 0 2px rgba(189, 237, 69, 0.25);
+}
+
+.form-request .form-textarea {
+	height: 120px;
+	min-height: 120px;
+	resize: vertical;
+}
+
+.form-select-wrap {
+	position: relative;
+	display: block;
+}
+
+.form-request .form-select {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	padding-right: 44px;
+	cursor: pointer;
+}
+
+.form-select-chevron {
+	position: absolute;
+	right: 14px;
+	top: 50%;
+	transform: translateY(-50%);
+	pointer-events: none;
+	color: #bded45;
+}
+
+.form-request .form-select option {
+	background: #1a1a1a;
+	color: #fff;
+}
+
+@media (max-width: 640px) {
+	.form-request {
+		grid-template-columns: 1fr;
+		padding: 24px;
+	}
+	.form-request .form-field-full,
+	.form-request .form-submit-wrap {
+		grid-column: 1;
+	}
 }
 
 .footer {
@@ -723,4 +829,55 @@ section:last-of-type::after {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+}
+
+/* Модальное окно «нужна регистрация» на главной */
+.auth-required-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.7);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.2s, visibility 0.2s;
+}
+.auth-required-overlay.is-open {
+	opacity: 1;
+	visibility: visible;
+}
+.auth-required-modal {
+	background: #111;
+	border: 1px solid #333;
+	border-radius: 12px;
+	padding: 32px;
+	max-width: 440px;
+	width: 90%;
+}
+.auth-required-title {
+	font-size: 18px;
+	line-height: 1.5;
+	margin-bottom: 24px;
+	color: #fff;
+	font-weight: 400;
+}
+.auth-required-actions {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+}
+.auth-required-actions .btn-main {
+	margin-top: 0;
+}
+.auth-required-cancel {
+	order: 1;
+}
+.auth-required-register {
+	order: 2;
+	text-decoration: none;
+	text-align: center;
+	display: inline-block;
 }
