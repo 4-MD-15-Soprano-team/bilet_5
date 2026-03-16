@@ -1,6 +1,4 @@
-# Деплой на GitHub Pages с подстановкой Supabase из Secrets
-# В настройках репозитория: Settings → Secrets and variables → Actions
-# Добавьте: SUPABASE_URL и SUPABASE_ANON_KEY
+
 
 name: Deploy to GitHub Pages
 
