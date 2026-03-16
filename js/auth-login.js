@@ -1,10 +1,6 @@
 (function () {
-	if (typeof window.supabase === 'undefined' || !window.SUPABASE_URL) return;
-
 	var form = document.querySelector('.auth-form');
 	if (!form) return;
-
-	var supabase = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
 	var passwordInput = document.getElementById('login-password');
 	var toggleBtn = document.getElementById('login-password-toggle');
@@ -23,6 +19,13 @@
 
 	form.addEventListener('submit', function (e) {
 		e.preventDefault();
+
+		if (typeof window.supabase === 'undefined' || !window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
+			alert('Supabase не настроен. В настройках репозитория добавьте Secrets: SUPABASE_URL и SUPABASE_ANON_KEY, затем задеплойте заново.');
+			return;
+		}
+
+		var supabase = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
 		var emailEl = document.getElementById('login-email');
 		var passwordEl = document.getElementById('login-password');
