@@ -325,21 +325,37 @@
 			});
 	}
 
+	function setupAdminHeader(user, profileRow) {
+		var nameEl = document.getElementById('adminUserDisplayName');
+		var display = '';
+		if (profileRow && profileRow.name && String(profileRow.name).trim()) {
+			display = String(profileRow.name).trim();
+		}
+		if (!display && user && user.email) {
+			display = user.email;
+		}
+		if (!display) {
+			display = 'Администратор';
+		}
+		if (nameEl) {
+			nameEl.textContent = display;
+		}
+		var logoutBtn = document.getElementById('adminLogoutBtn');
+		if (logoutBtn && supabaseClient) {
+			logoutBtn.addEventListener('click', function () {
+				supabaseClient.auth.signOut().then(function () {
+					window.location.href = 'login.html';
+				});
+			});
+		}
+	}
+
 	function initDatabaseMode() {
 		if (typeof window.supabase === 'undefined' || !window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
 			showToast('Supabase не настроен — заявки из БД недоступны.');
 			return;
 		}
 		supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
-		var lo = document.getElementById('adminLogoutLink');
-		if (lo) {
-			lo.addEventListener('click', function (e) {
-				e.preventDefault();
-				supabaseClient.auth.signOut().then(function () {
-					window.location.href = 'login.html';
-				});
-			});
-		}
 		supabaseClient.auth.getSession().then(function (res) {
 			var session = res.data && res.data.session;
 			var user = session && session.user;
@@ -349,7 +365,7 @@
 			}
 			supabaseClient
 				.from('profiles')
-				.select('is_admin')
+				.select('is_admin, name, email')
 				.eq('id', user.id)
 				.maybeSingle()
 				.then(function (pr) {
@@ -367,6 +383,7 @@
 						window.location.href = 'profile.html';
 						return;
 					}
+					setupAdminHeader(user, row);
 					dbMode = true;
 					fetchApplicationsAndRender();
 				});

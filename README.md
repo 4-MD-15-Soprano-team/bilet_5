@@ -51,7 +51,7 @@
   - после успешной регистрации создаётся/обновляется запись в `profiles`.
 - Вход (`login.html`, `js/auth-login.js`):
   - `supabase.auth.signInWithPassword({ email, password })`
-  - успешный вход перенаправляет на `profile.html`.
+  - после входа читается `profiles.is_admin`: при **`true`** → `admin.html`, иначе → `profile.html`.
 - Профиль (`profile.html`, `js/profile.js`):
   - читает/обновляет `profiles` по `auth.user().id`
   - создаёт и показывает заявки из таблицы `applications`.

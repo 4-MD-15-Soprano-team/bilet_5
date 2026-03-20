@@ -10,15 +10,16 @@
 		<header class="admin-header">
 			<div class="admin-container admin-nav">
 				<a href="index.html" class="admin-logo">We are sysadmins</a>
-				<nav class="admin-nav-links">
-					<a href="index.html">Главная</a>
-					<a href="index.html#tasks">Задачи</a>
-					<a href="index.html#solutions">Услуги</a>
-					<a href="profile.html">Личный кабинет</a>
-				</nav>
-				<div class="admin-nav-actions">
-					<span class="admin-badge" title="Роль в системе">Админ</span>
-					<a href="login.html" class="admin-btn admin-btn-outline" id="adminLogoutLink" style="text-decoration: none; display: inline-flex; align-items: center;">Выйти</a>
+				<div class="admin-user-menu-wrap" id="adminUserMenuWrap">
+					<button type="button" class="admin-user-trigger" id="adminUserTrigger" aria-expanded="false" aria-haspopup="true" aria-controls="adminUserDropdown">
+						<span class="admin-user-name" id="adminUserDisplayName">—</span>
+						<span class="admin-user-role">Админ</span>
+					</button>
+					<div class="admin-user-dropdown" id="adminUserDropdown" role="menu" aria-label="Меню администратора">
+						<a href="profile.html" class="admin-user-dropdown-item" role="menuitem">Личный кабинет</a>
+						<a href="index.html" class="admin-user-dropdown-item" role="menuitem">На главную</a>
+						<button type="button" class="admin-user-dropdown-item admin-user-dropdown-item-danger" id="adminLogoutBtn" role="menuitem">Выйти</button>
+					</div>
 				</div>
 			</div>
 		</header>
@@ -26,10 +27,6 @@
 		<main class="admin-main">
 			<div class="admin-container">
 				<h1 class="admin-page-title">Панель администратора</h1>
-				<p class="admin-page-lead">
-					Все заявки из базы данных. Смена статуса сохраняется в Supabase — клиент видит актуальное состояние в личном кабинете. Доступ только для аккаунтов с
-					<code style="color: #bded45">is_admin = true</code> (см. <code>supabase/admin-setup.sql</code>).
-				</p>
 
 				<section class="admin-stats" aria-label="Сводная статистика">
 					<div class="admin-stat-card">

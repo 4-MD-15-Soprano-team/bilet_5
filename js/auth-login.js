@@ -58,19 +58,46 @@
 			return err.message || 'Ошибка входа.';
 		}
 
-		supabase.auth.signInWithPassword({ email: email, password: password })
+		supabase.auth
+			.signInWithPassword({ email: email, password: password })
 			.then(function (res) {
 				if (res.error) {
 					alert(loginErrorText(res.error));
-					if (btn) { btn.disabled = false; btn.textContent = 'Войти'; }
+					if (btn) {
+						btn.disabled = false;
+						btn.textContent = 'Войти';
+					}
 					return;
 				}
-				window.location.href = 'profile.html';
+				var user = res.data && res.data.user;
+				if (!user) {
+					window.location.href = 'profile.html';
+					return;
+				}
+				// Администраторы → admin.html, остальные → profile.html
+				return supabase
+					.from('profiles')
+					.select('is_admin')
+					.eq('id', user.id)
+					.maybeSingle()
+					.then(function (pr) {
+						var target = 'profile.html';
+						if (!pr.error && pr.data && pr.data.is_admin === true) {
+							target = 'admin.html';
+						}
+						if (pr.error) {
+							console.warn('profiles is_admin:', pr.error);
+						}
+						window.location.href = target;
+					});
 			})
 			.catch(function (err) {
 				console.error(err);
 				alert('Ошибка при входе.');
-				if (btn) { btn.disabled = false; btn.textContent = 'Войти'; }
+				if (btn) {
+					btn.disabled = false;
+					btn.textContent = 'Войти';
+				}
 			});
 	});
 })();
