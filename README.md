@@ -27,6 +27,7 @@
   - `company text`
   - `position text`
   - `department text`
+  - `is_admin boolean` — доступ к `admin.html` и просмотр всех заявок (по умолчанию `false`)
   - `created_at timestamptz`
   - `updated_at timestamptz`
 
@@ -40,7 +41,7 @@
   - `workplaces text`
   - `service text`
   - `comment text`
-  - `status text` — статус заявки (`new`, `in_progress`, и т.п.)
+  - `status text` — `new` (новая), `in_progress` (в работе), `done` (завершена); отображение в ЛК см. `profile.js`
   - `created_at timestamptz`
 
 ### Как это связано с фронтендом
@@ -56,5 +57,17 @@
   - создаёт и показывает заявки из таблицы `applications`.
 - Заявка с лендинга (`index.html` + Supabase):
   - форма «Заказать консультацию» создаёт запись в `applications` для текущего авторизованного пользователя.
+- Админ-панель (`admin.html`, `js/admin-ui.js`):
+  - после входа проверяется `profiles.is_admin`; иначе редирект на `profile.html`;
+  - загружаются **все** заявки; кнопки **В работу** / **Завершить** / **Открыть снова** обновляют `applications.status` в БД;
+  - клиент в `profile.html` при обновлении страницы видит те же статусы.
+
+### SQL для админки и RLS
+
+Выполните в Supabase → SQL скрипт **`supabase/admin-setup.sql`**: колонка `is_admin`, политики `SELECT`/`UPDATE` по всем заявкам для администраторов.
+
+Затем в **Table Editor → profiles** у нужного пользователя выставьте **`is_admin` = true** (тот же `id`, что в **Authentication → Users**).
+
+Убедитесь, что у обычных пользователей в RLS для `applications` есть правило вида «видеть только строки с `user_id = auth.uid()`» — иначе клиент не увидит свои заявки.
 
 
