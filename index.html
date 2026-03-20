@@ -8,19 +8,33 @@
 	</head>
 
 	<body>
-		<header class="header">
+		<header class="header site-header">
 			<div class="container nav">
 				<div class="logo">We are sysadmins</div>
 
-				<nav>
-					<a href="#">Главная</a>
-					<a href="#tasks">Задачи</a>
-					<a href="#solutions">Услуги</a>
-					<a href="#advantages">Преимущества</a>
-					<a href="#reviews">Отзывы</a>
-				</nav>
+				<button
+					type="button"
+					class="nav-toggle"
+					id="siteNavToggle"
+					aria-expanded="false"
+					aria-controls="siteNavDrawer"
+					aria-label="Открыть меню"
+				>
+					<span class="nav-toggle-bar" aria-hidden="true"></span>
+					<span class="nav-toggle-bar" aria-hidden="true"></span>
+					<span class="nav-toggle-bar" aria-hidden="true"></span>
+				</button>
 
-				<a href="register.html" class="btn-outline" id="navCabinet">Личный кабинет</a>
+				<div class="nav-drawer" id="siteNavDrawer">
+					<nav class="nav-drawer-nav" aria-label="Основная навигация">
+						<a href="#">Главная</a>
+						<a href="#tasks">Задачи</a>
+						<a href="#solutions">Услуги</a>
+						<a href="#advantages">Преимущества</a>
+						<a href="#reviews">Отзывы</a>
+					</nav>
+					<a href="register.html" class="btn-outline nav-cabinet-btn" id="navCabinet">Личный кабинет</a>
+				</div>
 			</div>
 		</header>
 
@@ -605,6 +619,35 @@ void main() {
 				document.querySelectorAll('.section-reveal, .cards-reveal').forEach(function (el) {
 					observer.observe(el);
 				});
+			})();
+		</script>
+
+		<script>
+			(function () {
+				var toggle = document.getElementById('siteNavToggle');
+				var drawer = document.getElementById('siteNavDrawer');
+				if (toggle && drawer) {
+					function setOpen(open) {
+						drawer.classList.toggle('is-open', open);
+						toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+						toggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+						document.body.classList.toggle('nav-open', open);
+					}
+					toggle.addEventListener('click', function () {
+						setOpen(!drawer.classList.contains('is-open'));
+					});
+					drawer.querySelectorAll('a').forEach(function (link) {
+						link.addEventListener('click', function () {
+							setOpen(false);
+						});
+					});
+					document.addEventListener('keydown', function (e) {
+						if (e.key === 'Escape') setOpen(false);
+					});
+					window.addEventListener('resize', function () {
+						if (window.matchMedia('(min-width: 901px)').matches) setOpen(false);
+					});
+				}
 			})();
 		</script>
 

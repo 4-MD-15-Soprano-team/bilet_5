@@ -10,13 +10,29 @@
 		<header class="profile-header">
 			<div class="profile-container profile-nav">
 				<a href="index.html" class="profile-logo">We are sysadmins</a>
-				<nav class="profile-nav-links">
-					<a href="index.html">Главная</a>
-					<a href="index.html#tasks">Задачи</a>
-					<a href="index.html#solutions">Услуги</a>
-					<a href="index.html#advantages">Преимущества</a>
-					<a href="index.html#reviews">Отзывы</a>
-				</nav>
+
+				<button
+					type="button"
+					class="profile-nav-toggle"
+					id="profileNavToggle"
+					aria-expanded="false"
+					aria-controls="profileNavDrawer"
+					aria-label="Открыть меню"
+				>
+					<span class="profile-nav-toggle-bar" aria-hidden="true"></span>
+					<span class="profile-nav-toggle-bar" aria-hidden="true"></span>
+					<span class="profile-nav-toggle-bar" aria-hidden="true"></span>
+				</button>
+
+				<div class="profile-nav-drawer" id="profileNavDrawer">
+					<nav class="profile-nav-links" aria-label="Навигация по сайту">
+						<a href="index.html">Главная</a>
+						<a href="index.html#tasks">Задачи</a>
+						<a href="index.html#solutions">Услуги</a>
+						<a href="index.html#advantages">Преимущества</a>
+						<a href="index.html#reviews">Отзывы</a>
+					</nav>
+				</div>
 				<span class="profile-nav-user" id="profileNavUserName"></span>
 			</div>
 		</header>

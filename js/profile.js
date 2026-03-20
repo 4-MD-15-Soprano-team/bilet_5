@@ -431,6 +431,17 @@
 
 	function onKeyDown(e) {
 		if (e.key !== 'Escape') return;
+		var pDrawer = document.getElementById('profileNavDrawer');
+		var pToggle = document.getElementById('profileNavToggle');
+		if (pDrawer && pDrawer.classList.contains('is-open')) {
+			pDrawer.classList.remove('is-open');
+			document.body.classList.remove('profile-nav-open');
+			if (pToggle) {
+				pToggle.setAttribute('aria-expanded', 'false');
+				pToggle.setAttribute('aria-label', 'Открыть меню');
+			}
+			return;
+		}
 		if (logoutConfirmOverlay && logoutConfirmOverlay.classList.contains('is-open')) closeLogoutConfirmModal();
 		else if (changePhotoModalOverlay && changePhotoModalOverlay.classList.contains('is-open')) closeChangePhotoModal();
 		else if (requestModalOverlay && requestModalOverlay.classList.contains('is-open')) closeRequestModal();
@@ -557,6 +568,29 @@
 	if (btnLogout) {
 		btnLogout.addEventListener('click', openLogoutConfirmModal);
 	}
+
+	(function initProfileMobileNav() {
+		var toggle = document.getElementById('profileNavToggle');
+		var drawer = document.getElementById('profileNavDrawer');
+		if (!toggle || !drawer) return;
+		function setOpen(open) {
+			drawer.classList.toggle('is-open', open);
+			toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+			toggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+			document.body.classList.toggle('profile-nav-open', open);
+		}
+		toggle.addEventListener('click', function () {
+			setOpen(!drawer.classList.contains('is-open'));
+		});
+		drawer.querySelectorAll('a').forEach(function (link) {
+			link.addEventListener('click', function () {
+				setOpen(false);
+			});
+		});
+		window.addEventListener('resize', function () {
+			if (window.matchMedia('(min-width: 901px)').matches) setOpen(false);
+		});
+	})();
 
 	loadProfileAndTickets();
 	document.addEventListener('keydown', onKeyDown);
