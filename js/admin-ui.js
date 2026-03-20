@@ -348,6 +348,33 @@
 				});
 			});
 		}
+
+		var menuWrap = document.getElementById('adminUserMenuWrap');
+		var trigger = document.getElementById('adminUserTrigger');
+		if (menuWrap && trigger && window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+			function closeAdminUserMenu() {
+				menuWrap.classList.remove('is-open');
+				trigger.setAttribute('aria-expanded', 'false');
+			}
+			trigger.addEventListener('click', function (e) {
+				e.stopPropagation();
+				var open = !menuWrap.classList.contains('is-open');
+				menuWrap.classList.toggle('is-open', open);
+				trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+			});
+			document.addEventListener('click', function (e) {
+				if (!menuWrap.contains(e.target)) closeAdminUserMenu();
+			});
+			document.addEventListener('keydown', function (e) {
+				if (e.key === 'Escape') closeAdminUserMenu();
+			});
+			var dd = document.getElementById('adminUserDropdown');
+			if (dd) {
+				dd.querySelectorAll('a').forEach(function (a) {
+					a.addEventListener('click', closeAdminUserMenu);
+				});
+			}
+		}
 	}
 
 	function initDatabaseMode() {
