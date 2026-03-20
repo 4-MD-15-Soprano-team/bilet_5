@@ -2,6 +2,25 @@
 	var form = document.querySelector('.auth-form');
 	if (!form) return;
 
+	function resetBtn(btn) {
+		if (btn) {
+			btn.disabled = false;
+			btn.textContent = 'Зарегистрироваться';
+		}
+	}
+
+	function translateRegisterError(err) {
+		if (!err) return 'Ошибка регистрации.';
+		var msg = (err.message || '').toLowerCase();
+		if (msg.indexOf('already registered') !== -1 || msg.indexOf('already been registered') !== -1) {
+			return 'Этот email уже зарегистрирован. Войдите на странице «Вход» или нажмите «Забыли пароль» в Supabase / смените пароль.';
+		}
+		if (msg.indexOf('password') !== -1 && msg.indexOf('short') !== -1) {
+			return 'Пароль слишком короткий. Укажите более длинный пароль (как в требованиях проекта).';
+		}
+		return err.message || 'Ошибка регистрации.';
+	}
+
 	// Глаз: показать/скрыть пароль
 	var passwordInput = document.getElementById('reg-password');
 	var toggleBtn = document.getElementById('reg-password-toggle');
@@ -49,37 +68,60 @@
 			btn.textContent = 'Регистрация…';
 		}
 
-		supabase.auth.signUp({ email: email, password: password })
+		supabase.auth
+			.signUp({ email: email, password: password })
 			.then(function (res) {
 				if (res.error) {
-					alert(res.error.message || 'Ошибка регистрации.');
-					if (btn) { btn.disabled = false; btn.textContent = 'Зарегистрироваться'; }
-					return;
+					alert(translateRegisterError(res.error));
+					resetBtn(btn);
+					return Promise.reject(new Error('register_failed'));
 				}
-				var user = res.data.user;
+				var user = res.data && res.data.user;
+				var session = res.data && res.data.session;
+				// Если включено подтверждение email, user может быть, а session — null
 				if (!user) {
-					if (btn) { btn.disabled = false; btn.textContent = 'Зарегистрироваться'; }
-					return;
+					alert(
+						'Регистрация принята. Если в проекте включено подтверждение email, откройте письмо и перейдите по ссылке, затем войдите на странице «Вход».'
+					);
+					resetBtn(btn);
+					return Promise.reject(new Error('no_user'));
 				}
-				return supabase.from('profiles').upsert({
-					id: user.id,
-					email: email,
-					name: name || null,
-					phone: phone || null
-				}, { onConflict: 'id' });
+				return supabase
+					.from('profiles')
+					.upsert(
+						{
+							id: user.id,
+							email: email,
+							name: name || null,
+							phone: phone || null
+						},
+						{ onConflict: 'id' }
+					)
+					.then(function (upRes) {
+						return { upRes: upRes, session: session };
+					});
 			})
-			.then(function (res) {
-				if (res && res.error) {
-					console.warn('Profile upsert:', res.error);
+			.then(function (payload) {
+				if (!payload) return;
+				if (payload.upRes && payload.upRes.error) {
+					console.warn('Profile upsert:', payload.upRes.error);
+				}
+				if (!payload.session) {
+					alert(
+						'Аккаунт создан. Подтвердите email по ссылке из письма (если настроено в Supabase), затем войдите на странице «Вход».'
+					);
+					resetBtn(btn);
+					return;
 				}
 				setTimeout(function () {
 					window.location.href = 'profile.html';
 				}, 400);
 			})
 			.catch(function (err) {
+				if (err && (err.message === 'register_failed' || err.message === 'no_user')) return;
 				console.error(err);
 				alert('Ошибка при регистрации.');
-				if (btn) { btn.disabled = false; btn.textContent = 'Зарегистрироваться'; }
+				resetBtn(btn);
 			});
 	});
 })();
