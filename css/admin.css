@@ -1,0 +1,636 @@
+/* Панель администратора — тот же визуальный язык, что и profile.css */
+
+@font-face {
+	font-family: 'TacticSans';
+	src: url('../fonts/TacticSansExd-Bld.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'RobotoCustom';
+	src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.admin-page {
+	background: #000;
+	color: #fff;
+	font-family: 'RobotoCustom', Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	font-size: 16px;
+	min-height: 100vh;
+}
+
+.admin-container {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 24px 20px 48px;
+}
+
+/* Шапка */
+.admin-header {
+	border-bottom: 1px solid #bded45;
+}
+
+.admin-nav {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	gap: 16px;
+	padding: 36px 20px;
+}
+
+.admin-logo {
+	color: #bded45;
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+	font-size: 20px;
+	text-decoration: none;
+	justify-self: start;
+}
+
+.admin-nav-links {
+	justify-self: center;
+	white-space: nowrap;
+}
+
+.admin-nav-links a {
+	color: #fff;
+	text-decoration: none;
+	margin: 0 10px;
+	font-size: 16px;
+	font-family: 'RobotoCustom', Roboto, sans-serif;
+	font-weight: 400;
+	transition: text-shadow 0.3s ease, transform 0.3s ease;
+	display: inline-block;
+}
+
+.admin-nav-links a:hover {
+	text-shadow: 0 0 12px #bded45, 0 0 24px rgba(189, 237, 69, 0.5);
+	transform: scale(1.08);
+}
+
+.admin-nav-actions {
+	justify-self: end;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.admin-badge {
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+	font-size: 15px;
+	line-height: 1.2;
+	color: #0a0a0a;
+	background: #bded45;
+	padding: 8px 16px;
+	border-radius: 8px;
+	border: 1px solid #bded45;
+	box-sizing: border-box;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	animation: adminPulseGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes adminPulseGlow {
+	0%,
+	100% {
+		box-shadow: 0 0 0 0 rgba(189, 237, 69, 0.45);
+	}
+	50% {
+		box-shadow: 0 0 16px 2px rgba(189, 237, 69, 0.35);
+	}
+}
+
+/* Кнопки */
+.admin-btn {
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+	font-size: 15px;
+	padding: 8px 16px;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+	border: none;
+}
+
+.admin-btn:active {
+	transform: scale(0.98);
+}
+
+.admin-btn-primary {
+	background: #bded45;
+	border: 2px solid transparent;
+	color: #0a0a0a;
+}
+
+.admin-btn-primary:hover {
+	background: transparent;
+	border-color: #bded45;
+	color: #fff;
+}
+
+.admin-btn-outline {
+	background: transparent;
+	border: 1px solid #b6ff00;
+	color: #fff;
+}
+
+.admin-btn-outline:hover {
+	background: #bded45;
+	color: #0a0a0a;
+}
+
+.admin-btn-ghost {
+	background: rgba(255, 255, 255, 0.06);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	color: #fff;
+}
+
+.admin-btn-ghost:hover {
+	border-color: #bded45;
+	color: #bded45;
+}
+
+/* Заголовок страницы */
+.admin-main {
+	padding: 32px 0 48px;
+}
+
+.admin-page-title {
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+	font-size: 28px;
+	color: #fff;
+	margin-bottom: 8px;
+	opacity: 0;
+	animation: adminFadeUp 0.55s ease forwards;
+}
+
+.admin-page-lead {
+	font-size: 16px;
+	color: rgba(255, 255, 255, 0.65);
+	max-width: 640px;
+	margin-bottom: 28px;
+	line-height: 1.5;
+	opacity: 0;
+	animation: adminFadeUp 0.55s ease 0.08s forwards;
+}
+
+@keyframes adminFadeUp {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Статистика */
+.admin-stats {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 16px;
+	margin-bottom: 28px;
+}
+
+.admin-stat-card {
+	background: #282828;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 12px;
+	padding: 20px 22px;
+	transition: border-color 0.25s ease, transform 0.25s ease;
+	opacity: 0;
+	animation: adminFadeUp 0.5s ease forwards;
+}
+
+.admin-stat-card:nth-child(1) {
+	animation-delay: 0.12s;
+}
+.admin-stat-card:nth-child(2) {
+	animation-delay: 0.2s;
+}
+.admin-stat-card:nth-child(3) {
+	animation-delay: 0.28s;
+}
+.admin-stat-card:nth-child(4) {
+	animation-delay: 0.36s;
+}
+
+.admin-stat-card:hover {
+	border-color: rgba(189, 237, 69, 0.35);
+	transform: translateY(-2px);
+}
+
+.admin-stat-label {
+	font-size: 13px;
+	color: rgba(255, 255, 255, 0.55);
+	margin-bottom: 8px;
+}
+
+.admin-stat-value {
+	font-family: 'TacticSans', sans-serif;
+	font-size: 32px;
+	color: #bded45;
+	line-height: 1.1;
+}
+
+.admin-stat-hint {
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.4);
+	margin-top: 6px;
+}
+
+/* Панель фильтров */
+.admin-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 20px;
+	padding: 16px 20px;
+	background: #282828;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 12px;
+}
+
+.admin-search-wrap {
+	flex: 1;
+	min-width: 200px;
+	position: relative;
+}
+
+.admin-search-wrap svg {
+	position: absolute;
+	left: 14px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 18px;
+	height: 18px;
+	color: rgba(255, 255, 255, 0.35);
+	pointer-events: none;
+}
+
+.admin-search {
+	width: 100%;
+	background: #1a1a1a;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	border-radius: 8px;
+	color: #fff;
+	padding: 12px 14px 12px 42px;
+	font-size: 15px;
+	outline: none;
+	transition: border-color 0.2s ease;
+}
+
+.admin-search:focus {
+	border-color: #bded45;
+}
+
+.admin-search::placeholder {
+	color: rgba(255, 255, 255, 0.4);
+}
+
+.admin-select {
+	background: #1a1a1a;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	border-radius: 8px;
+	color: #fff;
+	padding: 12px 36px 12px 14px;
+	font-size: 15px;
+	cursor: pointer;
+	outline: none;
+	min-width: 180px;
+	appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23bded45' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 12px center;
+	transition: border-color 0.2s ease;
+}
+
+.admin-select:focus {
+	border-color: #bded45;
+}
+
+.admin-toolbar-spacer {
+	flex: 1;
+	min-width: 8px;
+}
+
+/* Карточка таблицы */
+.admin-card {
+	background: #282828;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 12px;
+	padding: 24px;
+	margin-bottom: 24px;
+}
+
+.admin-card-title {
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+	font-size: 18px;
+	color: #fff;
+	margin-bottom: 18px;
+}
+
+.admin-table-wrap {
+	overflow-x: auto;
+	border-radius: 8px;
+	border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.admin-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+
+.admin-table th {
+	text-align: left;
+	padding: 14px 16px;
+	background: #1f1f1f;
+	color: rgba(255, 255, 255, 0.65);
+	font-weight: 600;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-table td {
+	padding: 14px 16px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+	color: #fff;
+	vertical-align: middle;
+}
+
+.admin-table tbody tr {
+	transition: background 0.2s ease;
+}
+
+.admin-table tbody tr:hover {
+	background: rgba(189, 237, 69, 0.06);
+}
+
+.admin-table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.admin-table-num {
+	color: #bded45;
+	font-weight: 600;
+	font-family: 'TacticSans', sans-serif;
+	font-size: 13px;
+}
+
+.admin-table-muted {
+	color: rgba(255, 255, 255, 0.5);
+	font-size: 13px;
+}
+
+.admin-tag {
+	display: inline-block;
+	padding: 4px 10px;
+	border-radius: 6px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.admin-tag-new {
+	background: rgba(189, 237, 69, 0.2);
+	color: #bded45;
+	border: 1px solid rgba(189, 237, 69, 0.4);
+}
+
+.admin-tag-progress {
+	background: rgba(230, 194, 41, 0.2);
+	color: #e6c229;
+	border: 1px solid rgba(230, 194, 41, 0.35);
+}
+
+.admin-tag-done {
+	background: rgba(255, 255, 255, 0.08);
+	color: rgba(255, 255, 255, 0.75);
+	border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.admin-table-actions {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.admin-table-actions .admin-btn {
+	padding: 6px 12px;
+	font-size: 13px;
+}
+
+/* Модальное окно (демо) */
+.admin-modal-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.75);
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.admin-modal-overlay.is-open {
+	opacity: 1;
+	visibility: visible;
+}
+
+.admin-modal {
+	background: #282828;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 12px;
+	padding: 24px;
+	max-width: 520px;
+	width: 100%;
+	box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55);
+	transform: scale(0.96) translateY(8px);
+	transition: transform 0.3s ease;
+}
+
+.admin-modal-overlay.is-open .admin-modal {
+	transform: scale(1) translateY(0);
+}
+
+.admin-modal-header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 18px;
+}
+
+.admin-modal-title {
+	font-family: 'TacticSans', sans-serif;
+	font-size: 20px;
+	color: #fff;
+}
+
+.admin-modal-close {
+	width: 40px;
+	height: 40px;
+	border: none;
+	background: transparent;
+	color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: color 0.2s ease, background 0.2s ease;
+	flex-shrink: 0;
+}
+
+.admin-modal-close:hover {
+	color: #fff;
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.admin-modal-body {
+	font-size: 15px;
+	color: rgba(255, 255, 255, 0.85);
+	line-height: 1.55;
+}
+
+.admin-modal-body dl {
+	display: grid;
+	grid-template-columns: 120px 1fr;
+	gap: 10px 16px;
+	margin-top: 12px;
+}
+
+.admin-modal-body dt {
+	color: rgba(255, 255, 255, 0.45);
+	font-size: 13px;
+}
+
+.admin-modal-body dd {
+	margin: 0;
+}
+
+.admin-modal-footer {
+	display: flex;
+	gap: 10px;
+	justify-content: flex-end;
+	margin-top: 24px;
+	padding-top: 20px;
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Тост уведомлений */
+.admin-toast {
+	position: fixed;
+	bottom: 28px;
+	left: 50%;
+	transform: translateX(-50%) translateY(80px);
+	max-width: min(90vw, 420px);
+	padding: 14px 22px;
+	background: #282828;
+	border: 1px solid #bded45;
+	border-radius: 10px;
+	color: #fff;
+	font-size: 15px;
+	line-height: 1.4;
+	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+	z-index: 2000;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, transform 0.35s ease, visibility 0.35s ease;
+	pointer-events: none;
+}
+
+.admin-toast.is-visible {
+	opacity: 1;
+	visibility: visible;
+	transform: translateX(-50%) translateY(0);
+}
+
+.admin-table-wrap.admin-table-flash {
+	animation: adminTableFlash 0.6s ease;
+}
+
+@keyframes adminTableFlash {
+	0%,
+	100% {
+		box-shadow: none;
+	}
+	50% {
+		box-shadow: 0 0 0 2px rgba(189, 237, 69, 0.45);
+	}
+}
+
+/* Адаптив */
+@media (max-width: 1024px) {
+	.admin-stats {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 900px) {
+	.admin-nav {
+		grid-template-columns: 1fr;
+		justify-items: center;
+		text-align: center;
+	}
+
+	.admin-logo {
+		justify-self: center;
+	}
+
+	.admin-nav-links {
+		justify-self: center;
+		white-space: normal;
+	}
+
+	.admin-nav-actions {
+		justify-self: center;
+	}
+}
+
+@media (max-width: 600px) {
+	.admin-stats {
+		grid-template-columns: 1fr;
+	}
+
+	.admin-toolbar {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.admin-toolbar-spacer {
+		display: none;
+	}
+
+	.admin-table th,
+	.admin-table td {
+		padding: 10px 12px;
+		font-size: 13px;
+	}
+
+	.admin-modal-body dl {
+		grid-template-columns: 1fr;
+	}
+}

@@ -67,9 +67,13 @@
 	var currentAvatarDataUrl = '';
 
 	function statusToLabel(s) {
-		if (!s) return 'В обработке';
-		if (s === 'done' || s === 'Решено') return 'Решено';
-		if (s === 'in_progress' || s === 'in progress') return 'В работе';
+		if (s == null || s === '') return 'Новая';
+		var t = String(s).trim();
+		var x = t.toLowerCase().replace(/\s+/g, '_');
+		if (x === 'new') return 'Новая';
+		if (x === 'done' || t === 'Решено') return 'Завершено';
+		if (x === 'in_progress') return 'В работе';
+		if (t.toLowerCase().replace(/\s+/g, ' ') === 'in progress') return 'В работе';
 		return 'В обработке';
 	}
 

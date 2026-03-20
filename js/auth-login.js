@@ -43,10 +43,25 @@
 			btn.textContent = 'Вход…';
 		}
 
+		function loginErrorText(err) {
+			if (!err) return 'Ошибка входа.';
+			var msg = (err.message || '').toLowerCase();
+			if (msg.indexOf('invalid login') !== -1 || msg.indexOf('invalid credentials') !== -1) {
+				return (
+					'Неверный email или пароль.\n\n' +
+					'Если вы недавно регистрировались: в Supabase может быть включено подтверждение email — ' +
+					'сначала откройте письмо и перейдите по ссылке, либо в панели Supabase: Authentication → Users → ' +
+					'подтвердите пользователя вручную.\n\n' +
+					'Проверьте раскладку клавиатуры и Caps Lock.'
+				);
+			}
+			return err.message || 'Ошибка входа.';
+		}
+
 		supabase.auth.signInWithPassword({ email: email, password: password })
 			.then(function (res) {
 				if (res.error) {
-					alert(res.error.message || 'Ошибка входа.');
+					alert(loginErrorText(res.error));
 					if (btn) { btn.disabled = false; btn.textContent = 'Войти'; }
 					return;
 				}
