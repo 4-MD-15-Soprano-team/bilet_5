@@ -53,13 +53,21 @@ html {
 
 .profile-logo {
 	grid-area: logo;
-	color: #bded45;
-	font-family: 'TacticSans', sans-serif;
-	font-weight: 700;
-	font-size: 20px;
+	display: flex;
+	align-items: center;
+	line-height: 0;
 	text-decoration: none;
 	justify-self: start;
 	min-width: 0;
+}
+
+.profile-logo img {
+	height: 60px;
+	width: auto;
+	max-width: min(340px, 64vw);
+	display: block;
+	object-fit: contain;
+	object-position: center center;
 }
 
 .profile-nav-drawer {
@@ -796,8 +804,9 @@ body.profile-nav-open .profile-nav-toggle-bar:nth-child(3) {
 		padding: 16px 16px 20px;
 	}
 
-	.profile-logo {
-		font-size: clamp(14px, 4vw, 18px);
+	.profile-logo img {
+		height: clamp(42px, 12vw, 58px);
+		max-width: min(320px, 82vw);
 	}
 
 	.profile-nav-toggle {

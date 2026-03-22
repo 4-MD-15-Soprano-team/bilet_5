@@ -92,10 +92,19 @@ h2 {
 	background: #000;
 }
 
+/* Как на странице профиля: не тянуть секционные 60px от .container — иначе шапка выглядит иначе */
+.site-header .container.nav {
+	padding-top: 24px;
+	padding-bottom: 24px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
 .nav {
+	position: relative;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
 	gap: 16px;
 	padding: 24px 0;
 	flex-wrap: nowrap;
@@ -111,6 +120,28 @@ h2 {
 	font-family: 'TacticSans', sans-serif;
 	font-weight: 700;
 	font-size: 20px;
+}
+
+/* Логотип слева, пункты меню по центру, «Личный кабинет» справа */
+.nav .logo.nav-brand {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	line-height: 0;
+	text-decoration: none;
+}
+
+.nav .logo.nav-brand img {
+	height: 60px;
+	width: auto;
+	max-width: min(340px, 64vw);
+	display: block;
+	object-fit: contain;
+	object-position: center center;
 }
 
 nav a,
@@ -182,21 +213,30 @@ body.nav-open .nav-toggle-bar:nth-child(3) {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: center;
 	flex: 1;
 	min-width: 0;
+	width: 100%;
+	position: relative;
+	box-sizing: border-box;
 	gap: 12px;
+	padding-left: clamp(150px, 24vw, 270px);
+	padding-right: clamp(130px, 20vw, 210px);
 }
 
 .nav-drawer-nav {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: center;
 	gap: 4px 0;
 }
 
 .nav-cabinet-btn {
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
 	flex-shrink: 0;
 	white-space: nowrap;
 	text-align: center;
@@ -1001,6 +1041,17 @@ section:last-of-type::after {
 		overflow: hidden;
 	}
 
+	.nav {
+		justify-content: space-between;
+	}
+
+	.nav .logo.nav-brand {
+		position: relative;
+		left: auto;
+		top: auto;
+		transform: none;
+	}
+
 	.nav .logo,
 	.nav-toggle {
 		position: relative;
@@ -1018,7 +1069,11 @@ section:last-of-type::after {
 		flex-direction: column;
 		align-items: stretch;
 		justify-content: flex-start;
-		padding: calc(76px + env(safe-area-inset-top, 0px)) clamp(16px, 4vw, 24px) max(28px, env(safe-area-inset-bottom));
+		width: auto;
+		padding-left: clamp(16px, 4vw, 24px);
+		padding-right: clamp(16px, 4vw, 24px);
+		padding-top: calc(76px + env(safe-area-inset-top, 0px));
+		padding-bottom: max(28px, env(safe-area-inset-bottom));
 		background: rgba(8, 8, 8, 0.98);
 		backdrop-filter: blur(12px);
 		-webkit-backdrop-filter: blur(12px);
@@ -1055,6 +1110,8 @@ section:last-of-type::after {
 	}
 
 	.nav-cabinet-btn {
+		position: static;
+		transform: none;
 		margin-top: 20px;
 		width: 100%;
 		box-sizing: border-box;
@@ -1203,9 +1260,14 @@ section:last-of-type::after {
 		padding: 16px 0;
 	}
 
-	.logo {
+	.logo:not(.nav-brand) {
 		font-size: clamp(14px, 4vw, 18px);
 		line-height: 1.2;
+	}
+
+	.nav .logo.nav-brand img {
+		height: clamp(42px, 12vw, 58px);
+		max-width: min(320px, 82vw);
 	}
 
 	.hero {
@@ -1216,5 +1278,41 @@ section:last-of-type::after {
 @media (min-width: 901px) {
 	body.nav-open {
 		overflow: visible;
+	}
+
+	/* Та же логика, что .profile-nav: логотип | ссылки по центру | кабинет справа */
+	.nav {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+		grid-template-areas: 'logo links cabinet';
+		align-items: center;
+		gap: 16px;
+		justify-content: initial;
+	}
+
+	.nav .logo.nav-brand {
+		position: static;
+		transform: none;
+		grid-area: logo;
+		justify-self: start;
+	}
+
+	.nav-drawer {
+		display: contents;
+		padding-left: 0;
+		padding-right: 0;
+		width: auto;
+	}
+
+	.nav-drawer-nav {
+		grid-area: links;
+		justify-self: center;
+	}
+
+	.nav-cabinet-btn {
+		grid-area: cabinet;
+		justify-self: end;
+		position: static;
+		transform: none;
 	}
 }
