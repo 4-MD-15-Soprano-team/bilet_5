@@ -16,6 +16,22 @@
 	var btnRefresh = document.getElementById('adminTicketsRefresh');
 	var btnExport = document.getElementById('adminTicketsExport');
 	var tableWrap = document.getElementById('adminTableWrap');
+	var profileEditOverlay = document.getElementById('adminProfileEditOverlay');
+	var btnProfileEdit = document.getElementById('adminProfileEditBtn');
+	var btnProfileEditClose = document.getElementById('adminProfileEditClose');
+	var btnProfileEditCancel = document.getElementById('adminProfileEditCancel');
+	var btnProfileEditSave = document.getElementById('adminProfileEditSave');
+	var inputEditName = document.getElementById('adminEditName');
+	var inputEditPosition = document.getElementById('adminEditPosition');
+	var inputEditEmail = document.getElementById('adminEditEmail');
+	var inputEditPhone = document.getElementById('adminEditPhone');
+	var elProfileName = document.getElementById('adminProfileName');
+	var elProfilePosition = document.getElementById('adminProfilePosition');
+	var elProfileEmail = document.getElementById('adminProfileEmail');
+	var elProfilePhone = document.getElementById('adminProfilePhone');
+
+	var cachedProfileRow = null;
+	var currentAdminUser = null;
 
 	var LABELS = {
 		company: 'Компания',
@@ -325,6 +341,78 @@
 			});
 	}
 
+	function displayOrDash(val) {
+		if (val == null) return '—';
+		var s = String(val).trim();
+		return s ? s : '—';
+	}
+
+	function fillAdminProfileCard(profileRow, user) {
+		if (!elProfileName) return;
+		var name = profileRow && profileRow.name;
+		var position = profileRow && profileRow.position;
+		var email = (profileRow && profileRow.email) || (user && user.email) || '';
+		var phone = profileRow && profileRow.phone;
+		elProfileName.textContent = displayOrDash(name);
+		elProfilePosition.textContent = displayOrDash(position);
+		elProfileEmail.textContent = displayOrDash(email);
+		elProfilePhone.textContent = displayOrDash(phone);
+	}
+
+	function openProfileEditModal() {
+		if (!profileEditOverlay || !cachedProfileRow || !currentAdminUser) return;
+		var row = cachedProfileRow;
+		if (inputEditName) inputEditName.value = row.name ? String(row.name).trim() : '';
+		if (inputEditPosition) inputEditPosition.value = row.position ? String(row.position).trim() : '';
+		if (inputEditEmail) inputEditEmail.value = (row.email || currentAdminUser.email || '').trim();
+		if (inputEditPhone) inputEditPhone.value = row.phone ? String(row.phone).trim() : '';
+		profileEditOverlay.classList.add('is-open');
+		profileEditOverlay.setAttribute('aria-hidden', 'false');
+		document.body.style.overflow = 'hidden';
+		if (inputEditName) inputEditName.focus();
+	}
+
+	function closeProfileEditModal() {
+		if (!profileEditOverlay) return;
+		profileEditOverlay.classList.remove('is-open');
+		profileEditOverlay.setAttribute('aria-hidden', 'true');
+		if (!overlay || !overlay.classList.contains('is-open')) {
+			document.body.style.overflow = '';
+		}
+	}
+
+	function saveAdminProfile() {
+		if (!supabaseClient || !currentAdminUser) return;
+		var name = inputEditName && inputEditName.value ? inputEditName.value.trim() : '';
+		var position = inputEditPosition && inputEditPosition.value ? inputEditPosition.value.trim() : '';
+		var email = inputEditEmail && inputEditEmail.value ? inputEditEmail.value.trim() : '';
+		var phone = inputEditPhone && inputEditPhone.value ? inputEditPhone.value.trim() : '';
+		if (!email) {
+			showToast('Укажите почту.');
+			return;
+		}
+		supabaseClient
+			.from('profiles')
+			.update({ name: name || null, position: position || null, email: email, phone: phone || null })
+			.eq('id', currentAdminUser.id)
+			.then(function (r) {
+				if (r.error) {
+					showToast('Ошибка: ' + (r.error.message || 'не удалось сохранить'));
+					return;
+				}
+				if (cachedProfileRow) {
+					cachedProfileRow.name = name || null;
+					cachedProfileRow.position = position || null;
+					cachedProfileRow.email = email;
+					cachedProfileRow.phone = phone || null;
+				}
+				fillAdminProfileCard(cachedProfileRow, currentAdminUser);
+				setupAdminHeader(currentAdminUser, cachedProfileRow);
+				closeProfileEditModal();
+				showToast('Профиль сохранён.');
+			});
+	}
+
 	function setupAdminHeader(user, profileRow) {
 		var nameEl = document.getElementById('adminUserDisplayName');
 		var display = '';
@@ -392,7 +480,7 @@
 			}
 			supabaseClient
 				.from('profiles')
-				.select('is_admin, name, email')
+				.select('is_admin, name, email, phone, position')
 				.eq('id', user.id)
 				.maybeSingle()
 				.then(function (pr) {
@@ -410,7 +498,11 @@
 						window.location.href = 'profile.html';
 						return;
 					}
+					currentAdminUser = user;
+					cachedProfileRow = row ? Object.assign({}, row) : {};
 					setupAdminHeader(user, row);
+					fillAdminProfileCard(row, user);
+					if (btnProfileEdit) btnProfileEdit.disabled = false;
 					dbMode = true;
 					fetchApplicationsAndRender();
 				});
@@ -454,7 +546,12 @@
 		});
 	}
 	document.addEventListener('keydown', function (e) {
-		if (e.key === 'Escape' && overlay && overlay.classList.contains('is-open')) closeModal();
+		if (e.key !== 'Escape') return;
+		if (profileEditOverlay && profileEditOverlay.classList.contains('is-open')) {
+			closeProfileEditModal();
+			return;
+		}
+		if (overlay && overlay.classList.contains('is-open')) closeModal();
 	});
 
 	if (btnWriteClient) {
@@ -491,6 +588,28 @@
 
 	if (btnExport) {
 		btnExport.addEventListener('click', exportVisibleRowsCsv);
+	}
+
+	if (btnProfileEdit) {
+		btnProfileEdit.addEventListener('click', function () {
+			if (!dbMode) return;
+			openProfileEditModal();
+		});
+	}
+	if (btnProfileEditClose) btnProfileEditClose.addEventListener('click', closeProfileEditModal);
+	if (btnProfileEditCancel) btnProfileEditCancel.addEventListener('click', closeProfileEditModal);
+	if (btnProfileEditSave) btnProfileEditSave.addEventListener('click', saveAdminProfile);
+	if (profileEditOverlay) {
+		profileEditOverlay.addEventListener('click', function (e) {
+			if (e.target === profileEditOverlay) closeProfileEditModal();
+		});
+	}
+	var profileEditForm = document.getElementById('adminProfileEditForm');
+	if (profileEditForm) {
+		profileEditForm.addEventListener('submit', function (e) {
+			e.preventDefault();
+			saveAdminProfile();
+		});
 	}
 
 	initDatabaseMode();

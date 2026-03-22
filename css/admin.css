@@ -55,12 +55,20 @@ html {
 }
 
 .admin-logo {
-	color: #bded45;
-	font-family: 'TacticSans', sans-serif;
-	font-weight: 700;
-	font-size: 20px;
+	display: flex;
+	align-items: center;
+	line-height: 0;
 	text-decoration: none;
 	justify-self: start;
+}
+
+.admin-logo img {
+	height: 60px;
+	width: auto;
+	max-width: min(340px, 64vw);
+	display: block;
+	object-fit: contain;
+	object-position: center center;
 }
 
 /* Меню администратора: имя + выпадашка по hover / focus */
@@ -180,6 +188,12 @@ button.admin-user-dropdown-item:hover {
 	transform: scale(0.98);
 }
 
+.admin-btn:disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
 .admin-btn-primary {
 	background: #bded45;
 	border: 2px solid transparent;
@@ -239,6 +253,113 @@ button.admin-user-dropdown-item:hover {
 		opacity: 1;
 		transform: translateY(0);
 	}
+}
+
+/* Карточка профиля администратора */
+.admin-profile-card {
+	margin-bottom: 28px;
+	opacity: 0;
+	animation: adminFadeUp 0.5s ease 0.06s forwards;
+}
+
+.admin-profile-card-inner {
+	background: #282828;
+	border: 1px solid rgba(189, 237, 69, 0.22);
+	border-radius: 12px;
+	padding: 22px 24px;
+	box-shadow: 0 0 0 1px rgba(189, 237, 69, 0.06);
+	transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.admin-profile-card-inner:hover {
+	border-color: rgba(189, 237, 69, 0.38);
+	box-shadow: 0 0 24px rgba(189, 237, 69, 0.08);
+}
+
+.admin-profile-card-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 14px 20px;
+	margin-bottom: 22px;
+	padding-bottom: 18px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-profile-card-title {
+	font-family: 'TacticSans', sans-serif;
+	font-weight: 700;
+	font-size: clamp(17px, 3.5vw, 20px);
+	color: #fff;
+	line-height: 1.2;
+}
+
+.admin-profile-fields {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 18px 32px;
+}
+
+.admin-profile-field {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-width: 0;
+}
+
+.admin-profile-label {
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: rgba(189, 237, 69, 0.75);
+}
+
+.admin-profile-value {
+	font-size: 16px;
+	color: #fff;
+	line-height: 1.35;
+	word-break: break-word;
+}
+
+/* Форма в модалке профиля */
+.admin-form-group {
+	margin-bottom: 16px;
+}
+
+.admin-form-group:last-child {
+	margin-bottom: 0;
+}
+
+.admin-form-label {
+	display: block;
+	font-size: 12px;
+	font-weight: 600;
+	color: rgba(255, 255, 255, 0.55);
+	margin-bottom: 8px;
+	letter-spacing: 0.02em;
+}
+
+.admin-form-input {
+	width: 100%;
+	background: #1a1a1a;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	border-radius: 8px;
+	color: #fff;
+	padding: 12px 14px;
+	font-size: 15px;
+	font-family: 'RobotoCustom', Roboto, sans-serif;
+	outline: none;
+	transition: border-color 0.2s ease;
+}
+
+.admin-form-input:focus {
+	border-color: #bded45;
+}
+
+.admin-modal-overlay-profile {
+	z-index: 1100;
 }
 
 /* Статистика */
@@ -643,6 +764,11 @@ button.admin-user-dropdown-item:hover {
 		justify-self: center;
 	}
 
+	.admin-logo img {
+		height: clamp(42px, 12vw, 58px);
+		max-width: min(320px, 82vw);
+	}
+
 	.admin-user-menu-wrap {
 		justify-self: center;
 		width: 100%;
@@ -696,6 +822,21 @@ button.admin-user-dropdown-item:hover {
 
 	.admin-toast.is-visible {
 		transform: translateY(0);
+	}
+}
+
+@media (max-width: 640px) {
+	.admin-profile-fields {
+		grid-template-columns: 1fr;
+	}
+
+	.admin-profile-card-head {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.admin-profile-card-head .admin-btn {
+		width: 100%;
 	}
 }
 
